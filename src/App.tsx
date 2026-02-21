@@ -10,7 +10,7 @@ import Projects from "./pages/Projects";
 import MyProjects from "./pages/MyProjects";
 import NotFound from "./pages/NotFound";
 
-const queryClient = new QueryClient({
+const queryClient = new QueryClient({    
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
