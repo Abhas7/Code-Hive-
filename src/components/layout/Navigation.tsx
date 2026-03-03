@@ -46,7 +46,7 @@ export const Navigation = () => {
 
   const handleStartProject = () => {
     const username = getConnectedUsername();
-    
+
     // If not connected, we can either redirect to connect page or show the modal
     // (which will show a connect wallet message)
     setIsCreateModalOpen(true);
@@ -60,27 +60,33 @@ export const Navigation = () => {
             <h1 className="text-xl font-bold gradient-text mr-8">
               <Link to="/">CrowdHive</Link>
             </h1>
-            
+
             <div className="hidden md:flex space-x-6">
-              <Link 
+              <Link
                 to="/"
                 className="text-sm font-medium hover:text-primary transition-colors"
               >
                 Home
               </Link>
-              <button 
+              <button
                 onClick={() => scrollToSection('how-it-works')}
                 className="text-sm font-medium hover:text-primary transition-colors"
               >
                 How It Works
               </button>
               <Link
+                to="/dashboard"
+                className="text-sm font-medium hover:text-primary transition-colors"
+              >
+                Dashboard
+              </Link>
+              <Link
                 to="/projects"
                 className="text-sm font-medium hover:text-primary transition-colors"
               >
                 Projects
               </Link>
-              <button 
+              <button
                 onClick={() => scrollToSection('why-choose-us')}
                 className="text-sm font-medium hover:text-primary transition-colors"
               >
@@ -100,7 +106,7 @@ export const Navigation = () => {
             <div className="hidden md:block">
               <WalletConnect />
             </div>
-            <Button 
+            <Button
               className="hidden md:inline-flex bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700"
               onClick={handleStartProject}
             >
@@ -109,9 +115,9 @@ export const Navigation = () => {
             </Button>
 
             {/* Mobile menu button */}
-            <Button 
-              variant="ghost" 
-              size="icon" 
+            <Button
+              variant="ghost"
+              size="icon"
               className="md:hidden"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
@@ -131,12 +137,19 @@ export const Navigation = () => {
               >
                 Home
               </Link>
-              <button 
+              <button
                 onClick={() => scrollToSection('how-it-works')}
                 className="text-sm font-medium hover:text-primary transition-colors py-2 text-left"
               >
                 How It Works
               </button>
+              <Link
+                to="/dashboard"
+                className="text-sm font-medium hover:text-primary transition-colors py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Dashboard
+              </Link>
               <Link
                 to="/projects"
                 className="text-sm font-medium hover:text-primary transition-colors py-2"
@@ -144,7 +157,7 @@ export const Navigation = () => {
               >
                 Projects
               </Link>
-              <button 
+              <button
                 onClick={() => scrollToSection('why-choose-us')}
                 className="text-sm font-medium hover:text-primary transition-colors py-2 text-left"
               >
@@ -160,7 +173,7 @@ export const Navigation = () => {
               <div className="py-2">
                 <WalletConnect />
               </div>
-              <Button 
+              <Button
                 className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700"
                 onClick={() => {
                   setIsMobileMenuOpen(false);
@@ -176,9 +189,9 @@ export const Navigation = () => {
       </nav>
 
       {/* Create Project Modal */}
-      <CreateProjectForm 
-        isOpen={isCreateModalOpen} 
-        onClose={() => setIsCreateModalOpen(false)} 
+      <CreateProjectForm
+        isOpen={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)}
       />
     </>
   );

@@ -9,13 +9,14 @@ import Index from "./pages/Index";
 import Projects from "./pages/Projects";
 import MyProjects from "./pages/MyProjects";
 import NotFound from "./pages/NotFound";
+import Dashboard from "./pages/Dashboard";
 
-const queryClient = new QueryClient({    
+const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
       retry: false,
-    },     
+    },
   },
 });
 
@@ -29,6 +30,7 @@ const App = () => (
         <div className="pt-16"> {/* Added padding to prevent content from being hidden under navbar */}
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/my-projects" element={<MyProjects />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
