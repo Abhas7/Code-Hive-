@@ -56,7 +56,7 @@ const MyProjects = () => {
         const userDrafts = storedDrafts.filter((draft: any) => draft.creator === username);
         setDrafts(userDrafts);
         
-        // For contributions, we would fetch transfers from the blockchain
+        // For contributions, we would fetch transfers from the blockchain  
         // This is simplified for now
         setContributions([]);
         
