@@ -8,7 +8,7 @@ import { getConnectedUsername, fetchLatestProjects, formatPostToProject } from "
 import { PlusCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { JoinMovementSection } from "@/components/landing/JoinMovementSection";
-import { ProjectsTabs } from "@/components/my-projects/ProjectsTabs";
+import { ProjectsTabs } from "@/components/my-projects/ProjectsTabs"; 
 
 const MyProjects = () => {
   const [activeTab, setActiveTab] = useState("created");
