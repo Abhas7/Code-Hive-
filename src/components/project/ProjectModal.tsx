@@ -3,14 +3,14 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
-import { 
-  X, 
-  Check, 
-  Share2, 
-  Twitter, 
-  Linkedin, 
-  MessageCircle, 
-  RefreshCw, 
+import {
+  X,
+  Check,
+  Share2,
+  Twitter,
+  Linkedin,
+  MessageCircle,
+  RefreshCw,
   ExternalLink,
   BookmarkPlus,
   CircleDollarSign,
@@ -20,9 +20,9 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  getConnectedUsername, 
-  sendHiveTokens, 
+import {
+  getConnectedUsername,
+  sendHiveTokens,
   fetchRecentTransfers,
   getHiveExplorerUrl,
   convertHiveToUsd
@@ -83,7 +83,7 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
   const [showPointsAnimation, setShowPointsAnimation] = useState(false);
   const [animatedPoints, setAnimatedPoints] = useState(0);
   const { toast } = useToast();
-  
+
   useEffect(() => {
     const savedPoints = localStorage.getItem("crowdhive_user_points");
     if (savedPoints) {
@@ -120,23 +120,23 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
   const awardPoints = (action: keyof typeof POINTS, value?: number) => {
     const username = getConnectedUsername();
     if (!username) return;
-    
+
     let pointsToAdd = POINTS[action];
-    
+
     if (action === "CONTRIBUTION" && value) {
       const amountStr = typeof value === 'number' ? value.toString() : value;
       const hiveAmount = parseFloat(amountStr);
       pointsToAdd += Math.floor(hiveAmount * POINTS.CONTRIBUTION_PER_HIVE);
     }
-    
+
     setAnimatedPoints(pointsToAdd);
     setShowPointsAnimation(true);
-    
+
     setTimeout(() => {
       setUserPoints(prev => prev + pointsToAdd);
       setShowPointsAnimation(false);
     }, 2000);
-    
+
     toast({
       title: `+${pointsToAdd} points!`,
       description: `You earned points for your ${action.toLowerCase()} activity!`,
@@ -149,7 +149,7 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
       setUsdValue(null);
       return;
     }
-    
+
     // Define an async function inside the effect
     const updateUsdValue = async () => {
       try {
@@ -160,19 +160,19 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
         setUsdValue(null);
       }
     };
-    
+
     // Call the async function
     updateUsdValue();
   }, [amount]);
 
   const fetchContributions = async () => {
     if (!project) return;
-    
+
     setIsLoading(true);
-    
+
     try {
       const transfers = await fetchRecentTransfers(project.creator);
-      
+
       const newContributors = transfers
         .filter(transfer => transfer.to === project.creator)
         .map(transfer => ({
@@ -181,14 +181,14 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
           date: new Date(transfer.timestamp).toLocaleDateString(),
           txId: transfer.transaction_id
         }));
-      
+
       const existingTxIds = contributors.map(c => c.txId).filter(Boolean);
       const filteredNewContributors = newContributors.filter(
         c => c.txId && !existingTxIds.includes(c.txId)
       );
-      
+
       setContributors([...filteredNewContributors, ...contributors]);
-      
+
       toast({
         title: "Updated contributions",
         description: "Latest contributions have been loaded",
@@ -207,9 +207,9 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
 
   const handleContribute = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     const connectedUser = getConnectedUsername();
-    
+
     if (!connectedUser) {
       toast({
         title: "Not connected",
@@ -218,7 +218,7 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
       });
       return;
     }
-    
+
     if (!amount || parseFloat(amount) <= 0) {
       toast({
         title: "Invalid amount",
@@ -244,27 +244,27 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
         if (result.txId) {
           setTransactionId(result.txId);
         }
-        
+
         const newContribution = {
           username: connectedUser,
           amount: `${amount} HIVE`,
           date: new Date().toLocaleDateString(),
           txId: result.txId
         };
-        
+
         setContributors([newContribution, ...contributors]);
-        
+
         const contributedAmount = parseFloat(amount);
         const targetAmount = parseInt(project.target.replace(/[^\d]/g, ''));
         const newProgress = Math.min(
           project.progress + Math.floor((contributedAmount / targetAmount) * 100),
           100
         );
-        
+
         awardPoints("CONTRIBUTION", parseFloat(amount));
-        
+
         checkMilestones(project.progress, newProgress);
-        
+
         setShowSuccess(true);
       } else {
         toast({
@@ -311,7 +311,7 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
 
   const handleAddComment = () => {
     if (!comment.trim()) return;
-    
+
     const username = getConnectedUsername();
     if (!username) {
       toast({
@@ -321,19 +321,19 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
       });
       return;
     }
-    
+
     const newComment = {
       id: Date.now(),
       username,
       text: comment,
       date: new Date().toLocaleString()
     };
-    
+
     setComments([newComment, ...comments]);
     setComment("");
-    
+
     awardPoints("COMMENT");
-    
+
     toast({
       title: "Comment posted",
       description: "Your comment has been added to the discussion"
@@ -342,12 +342,12 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
 
   const shareProject = (platform: string) => {
     if (!project) return;
-    
+
     const projectTitle = encodeURIComponent(project.title);
     const message = encodeURIComponent(`I just contributed to ${project.title} on CrowdHive! Check it out and join me in supporting this project.`);
     let url = '';
 
-    switch(platform) {
+    switch (platform) {
       case 'twitter':
         url = `https://twitter.com/intent/tweet?text=${message}`;
         break;
@@ -375,13 +375,13 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
 
   const handleBookmarkProject = () => {
     if (!project) return;
-    
+
     toast({
       title: "Project bookmarked",
       description: "This project has been added to your bookmarks.",
       variant: "default",
     });
-    
+
     const username = getConnectedUsername();
     if (username) {
       awardPoints("BOOKMARK");
@@ -425,46 +425,46 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
 
   const renderTransactionReceipt = () => {
     if (!project || !transactionId) return null;
-    
+
     return (
-      <div className="border border-white/10 rounded-lg p-4 bg-black/20 mb-6">
+      <div className="border border-border rounded-lg p-4 bg-muted/20 mb-6">
         <h3 className="text-base font-semibold mb-3 flex items-center">
           <CircleDollarSign className="mr-2 h-4 w-4 text-green-400" />
           Transaction Receipt
         </h3>
-        
+
         <div className="space-y-2 text-sm">
           <div className="flex justify-between">
             <span className="text-muted-foreground">Amount:</span>
             <span className="font-medium">{amount} HIVE</span>
           </div>
-          
+
           {usdValue && (
             <div className="flex justify-between">
               <span className="text-muted-foreground">USD Value:</span>
               <span className="font-medium">{usdValue}</span>
             </div>
           )}
-          
+
           <div className="flex justify-between">
             <span className="text-muted-foreground">From:</span>
             <span className="font-medium">@{getConnectedUsername()}</span>
           </div>
-          
+
           <div className="flex justify-between">
             <span className="text-muted-foreground">To:</span>
             <span className="font-medium">@{project.creator}</span>
           </div>
-          
+
           <div className="flex justify-between">
             <span className="text-muted-foreground">Date:</span>
             <span className="font-medium">{new Date().toLocaleString()}</span>
           </div>
-          
-          <div className="flex justify-between items-center pt-2 border-t border-white/10">
+
+          <div className="flex justify-between items-center pt-2 border-t border-border">
             <span className="text-muted-foreground">Transaction ID:</span>
-            <a 
-              href={getHiveExplorerUrl(transactionId)} 
+            <a
+              href={getHiveExplorerUrl(transactionId)}
               target="_blank"
               rel="noopener noreferrer"
               className="font-medium text-purple-400 hover:text-purple-300 flex items-center"
@@ -481,7 +481,7 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
   if (!project || !isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm">
       {showPointsAnimation && (
         <div className="fixed top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
           <motion.div
@@ -495,8 +495,8 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
           </motion.div>
         </div>
       )}
-      
-      <div 
+
+      <div
         className="glass-card max-w-4xl w-full max-h-[90vh] overflow-y-auto rounded-xl animate-in fade-in zoom-in"
         onClick={(e) => e.stopPropagation()}
       >
@@ -506,13 +506,13 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
               <Check className="h-10 w-10 text-green-500" />
             </div>
             <h2 className="text-2xl font-bold mb-4">Contribution Successful!</h2>
-            
+
             {renderTransactionReceipt()}
-            
+
             <p className="text-lg text-muted-foreground mb-6">
               Thank you for supporting {project.title} with {amount} HIVE!
             </p>
-            
+
             <div className="mb-6 p-4 bg-purple-900/20 border border-purple-900/30 rounded-lg">
               <h3 className="text-lg font-semibold mb-2 flex items-center justify-center">
                 <Award className="text-purple-400 mr-2 h-5 w-5" />
@@ -525,10 +525,10 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
                 Keep contributing to unlock more rewards and exclusive features!
               </p>
             </div>
-            
+
             {!showSocialShare ? (
               <div className="flex flex-col space-y-4 items-center">
-                <Button 
+                <Button
                   onClick={handleSocialShare}
                   variant="outline"
                   className="flex items-center"
@@ -536,7 +536,7 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
                   <Share2 className="mr-2 h-4 w-4" />
                   Share your contribution
                 </Button>
-                <Button 
+                <Button
                   onClick={onClose}
                   className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700"
                 >
@@ -549,7 +549,7 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
                   Share your contribution with others:
                 </p>
                 <div className="flex justify-center space-x-4">
-                  <Button 
+                  <Button
                     variant="outline"
                     size="sm"
                     onClick={() => shareProject('twitter')}
@@ -558,7 +558,7 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
                     <Twitter className="mr-2 h-4 w-4 text-[#1DA1F2]" />
                     Twitter
                   </Button>
-                  <Button 
+                  <Button
                     variant="outline"
                     size="sm"
                     onClick={() => shareProject('linkedin')}
@@ -567,7 +567,7 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
                     <Linkedin className="mr-2 h-4 w-4 text-[#0077B5]" />
                     LinkedIn
                   </Button>
-                  <Button 
+                  <Button
                     variant="outline"
                     size="sm"
                     onClick={() => shareProject('discord')}
@@ -577,7 +577,7 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
                     Discord
                   </Button>
                 </div>
-                <Button 
+                <Button
                   onClick={onClose}
                   className="mt-4 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700"
                 >
@@ -589,9 +589,9 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
         ) : (
           <>
             <div className="relative h-64 md:h-80 overflow-hidden">
-              <img 
-                src={project.image} 
-                alt={project.title} 
+              <img
+                src={project.image}
+                alt={project.title}
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent" />
@@ -602,47 +602,47 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
                 <h2 className="text-3xl font-bold">{project.title}</h2>
                 <p className="text-muted-foreground">by {project.creator}</p>
               </div>
-              <Button 
-                variant="ghost" 
-                size="icon" 
+              <Button
+                variant="ghost"
+                size="icon"
                 onClick={onClose}
-                className="absolute top-4 right-4 rounded-full bg-black/50 hover:bg-black/70"
+                className="absolute top-4 right-4 rounded-full bg-background/50 hover:bg-background/70"
               >
                 <X className="h-5 w-5" />
               </Button>
-              
+
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={handleBookmarkProject}
-                className="absolute top-4 right-16 rounded-full bg-black/50 hover:bg-black/70"
+                className="absolute top-4 right-16 rounded-full bg-background/50 hover:bg-background/70"
                 title="Bookmark project"
               >
                 <BookmarkPlus className="h-5 w-5" />
               </Button>
-              
+
               {getConnectedUsername() && (
                 <div className="absolute top-4 left-4">
                   {renderPointsBadge()}
                 </div>
               )}
             </div>
-            
+
             <div className="p-6">
               <div className="mb-6">
                 <div className="mb-2 flex justify-between text-sm text-muted-foreground">
                   <span>{project.raised}</span>
                   <span>{project.target}</span>
                 </div>
-                <Progress 
-                  value={project.progress} 
+                <Progress
+                  value={project.progress}
                   className="h-3 mb-2 bg-muted progress-animate"
                 />
                 <div className="text-right text-sm text-purple-400">
                   {project.progress}% funded
                 </div>
               </div>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
                 <div className="md:col-span-3">
                   <Tabs defaultValue="about" className="w-full">
@@ -652,33 +652,33 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
                       <TabsTrigger value="updates">Updates</TabsTrigger>
                       <TabsTrigger value="discussion">Discussion</TabsTrigger>
                     </TabsList>
-                    
+
                     <TabsContent value="about" className="space-y-4">
                       <h3 className="text-xl font-semibold">About this project</h3>
                       <p className="text-muted-foreground whitespace-pre-line">{project.description}</p>
-                      
+
                       <div className="flex space-x-2 mt-6">
-                        <Button 
-                          size="sm" 
-                          variant="outline" 
+                        <Button
+                          size="sm"
+                          variant="outline"
                           className="flex items-center gap-1"
                           onClick={() => shareProject('twitter')}
                         >
                           <Twitter size={16} />
                           <span className="hidden sm:inline">Share</span>
                         </Button>
-                        <Button 
-                          size="sm" 
-                          variant="outline" 
+                        <Button
+                          size="sm"
+                          variant="outline"
                           className="flex items-center gap-1"
                           onClick={() => shareProject('linkedin')}
                         >
                           <Linkedin size={16} />
                           <span className="hidden sm:inline">Share</span>
                         </Button>
-                        <Button 
-                          size="sm" 
-                          variant="outline" 
+                        <Button
+                          size="sm"
+                          variant="outline"
                           className="flex items-center gap-1"
                           onClick={() => shareProject('discord')}
                         >
@@ -687,13 +687,13 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
                         </Button>
                       </div>
                     </TabsContent>
-                    
+
                     <TabsContent value="contributors">
                       <div className="flex justify-between items-center mb-4">
                         <h3 className="text-xl font-semibold">Contributors</h3>
-                        <Button 
-                          variant="outline" 
-                          size="sm" 
+                        <Button
+                          variant="outline"
+                          size="sm"
                           onClick={fetchContributions}
                           disabled={isLoading}
                           className="flex items-center gap-1"
@@ -702,7 +702,7 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
                           <span>Refresh</span>
                         </Button>
                       </div>
-                      
+
                       {contributors.length > 0 ? (
                         <div className="space-y-4 max-h-60 overflow-y-auto pr-2">
                           {contributors.map((contributor, index) => (
@@ -716,8 +716,8 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
                                   {contributor.amount}
                                 </div>
                                 {contributor.txId && (
-                                  <a 
-                                    href={getHiveExplorerUrl(contributor.txId)} 
+                                  <a
+                                    href={getHiveExplorerUrl(contributor.txId)}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="text-xs text-muted-foreground hover:text-purple-400 flex items-center mt-1"
@@ -733,7 +733,7 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
                         <p className="text-muted-foreground">No contributors yet. Be the first!</p>
                       )}
                     </TabsContent>
-                    
+
                     <TabsContent value="updates">
                       <div className="text-center py-8">
                         <Share2 className="mx-auto h-12 w-12 text-gray-500 mb-4" />
@@ -741,11 +741,11 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
                         <p className="text-muted-foreground">The creator hasn't posted any updates yet.</p>
                       </div>
                     </TabsContent>
-                    
+
                     <TabsContent value="discussion">
                       <div className="space-y-4">
                         <h3 className="text-xl font-semibold">Discussion</h3>
-                        
+
                         {getConnectedUsername() ? (
                           <div className="flex gap-2">
                             <Input
@@ -761,7 +761,7 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
                             Connect your Hive wallet to join the discussion
                           </div>
                         )}
-                        
+
                         {comments.length > 0 ? (
                           <div className="space-y-4 mt-4">
                             {comments.map((item) => (
@@ -781,7 +781,7 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
                     </TabsContent>
                   </Tabs>
                 </div>
-                
+
                 <div className="md:col-span-2">
                   <div className="border border-white/10 rounded-lg p-4">
                     <h3 className="text-xl font-semibold mb-4">Contribute to this project</h3>
@@ -797,32 +797,32 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
                           className="w-full"
                           disabled={isContributing}
                         />
-                        
+
                         {usdValue && (
                           <div className="text-right text-xs text-muted-foreground mt-1">
                             ≈ {usdValue} USD
                           </div>
                         )}
                       </div>
-                      <Button 
-                        type="submit" 
+                      <Button
+                        type="submit"
                         className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700"
                         disabled={isContributing || !getConnectedUsername()}
                       >
-                        {isContributing ? 
-                          "Processing..." : 
-                          getConnectedUsername() ? 
-                            "Contribute with HIVE" : 
+                        {isContributing ?
+                          "Processing..." :
+                          getConnectedUsername() ?
+                            "Contribute with HIVE" :
                             "Connect wallet to contribute"
                         }
                       </Button>
-                      
+
                       {!getConnectedUsername() && (
                         <p className="text-xs text-center text-yellow-400 mt-2">
                           You need to connect your Hive wallet first
                         </p>
                       )}
-                      
+
                       <p className="text-xs text-center text-muted-foreground mt-4">
                         By contributing, you agree to our Terms of Service and the project's funding terms.
                       </p>
