@@ -22,7 +22,7 @@ const MyProjects = () => {
   const navigate = useNavigate();
   
   useEffect(() => {
-    const username = getConnectedUsername();
+    const username = getConnectedUsername();    
     
     if (!username) {
       toast({

@@ -11,34 +11,34 @@ export const ThemeSwitch = () => {
   // On mount, check if the user has a preference
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
     if (savedTheme === "light") {
       setIsDarkMode(false);
-      document.documentElement.classList.remove("dark-theme");
-      document.documentElement.classList.add("light-theme");
-    } else {
+      document.documentElement.classList.remove("dark");
+    } else if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
       setIsDarkMode(true);
-      document.documentElement.classList.add("dark-theme");
-      document.documentElement.classList.remove("light-theme");
+      document.documentElement.classList.add("dark");
+    } else {
+      // Default to dark mode for this specific app's vibe if no preference
+      setIsDarkMode(true);
+      document.documentElement.classList.add("dark");
     }
   }, []);
 
   const toggleTheme = () => {
     const newIsDarkMode = !isDarkMode;
     setIsDarkMode(newIsDarkMode);
-    
+
     if (newIsDarkMode) {
-      // Switch to dark mode
-      document.documentElement.classList.add("dark-theme");
-      document.documentElement.classList.remove("light-theme");
+      document.documentElement.classList.add("dark");
       localStorage.setItem("theme", "dark");
       toast({
         title: "Dark mode activated",
         description: "The application is now in dark mode",
       });
     } else {
-      // Switch to light mode
-      document.documentElement.classList.remove("dark-theme");
-      document.documentElement.classList.add("light-theme");
+      document.documentElement.classList.remove("dark");
       localStorage.setItem("theme", "light");
       toast({
         title: "Light mode activated",

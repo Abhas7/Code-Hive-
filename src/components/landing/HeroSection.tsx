@@ -31,7 +31,7 @@ export const HeroSection = () => {
 
       <div className="container relative z-10 px-4 md:px-6">
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
-          <motion.h1 
+          <motion.h1
             className="text-4xl md:text-6xl font-extrabold mb-6 gradient-text"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -39,23 +39,23 @@ export const HeroSection = () => {
           >
             Empower Creators with Decentralized Funding
           </motion.h1>
-          
-          <motion.p 
-            className="text-xl md:text-2xl text-gray-300 mb-10 max-w-2xl"
+
+          <motion.p
+            className="text-xl md:text-2xl text-muted-foreground mb-10 max-w-2xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
           >
             Support innovative creators directly with blockchain technology. No middlemen, no fees, just pure funding.
           </motion.p>
-          
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.4 }}
           >
-            <Button 
-              size="lg" 
+            <Button
+              size="lg"
               className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-lg px-8 py-6 rounded-lg animate-pulse-glow"
               onClick={scrollToProjects}
             >

@@ -25,7 +25,7 @@ export const HowItWorksSection = () => {
       <div className="container px-4 md:px-6">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 gradient-text">How It Works</h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Fund creators directly with our decentralized platform in three simple steps
           </p>
         </div>
@@ -46,7 +46,7 @@ export const HowItWorksSection = () => {
                 </div>
               </div>
               <h3 className="text-xl font-bold mb-4">{step.title}</h3>
-              <p className="text-gray-400">{step.description}</p>
+              <p className="text-muted-foreground">{step.description}</p>
               <div className="absolute -left-5 top-1/2 transform -translate-y-1/2 hidden md:block">
                 {index < steps.length - 1 && (
                   <div className="text-3xl text-purple-500">→</div>
