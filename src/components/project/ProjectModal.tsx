@@ -435,34 +435,34 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
         
         <div className="space-y-2 text-sm">
           <div className="flex justify-between">
-            <span className="text-gray-400">Amount:</span>
+            <span className="text-muted-foreground">Amount:</span>
             <span className="font-medium">{amount} HIVE</span>
           </div>
           
           {usdValue && (
             <div className="flex justify-between">
-              <span className="text-gray-400">USD Value:</span>
+              <span className="text-muted-foreground">USD Value:</span>
               <span className="font-medium">{usdValue}</span>
             </div>
           )}
           
           <div className="flex justify-between">
-            <span className="text-gray-400">From:</span>
+            <span className="text-muted-foreground">From:</span>
             <span className="font-medium">@{getConnectedUsername()}</span>
           </div>
           
           <div className="flex justify-between">
-            <span className="text-gray-400">To:</span>
+            <span className="text-muted-foreground">To:</span>
             <span className="font-medium">@{project.creator}</span>
           </div>
           
           <div className="flex justify-between">
-            <span className="text-gray-400">Date:</span>
+            <span className="text-muted-foreground">Date:</span>
             <span className="font-medium">{new Date().toLocaleString()}</span>
           </div>
           
           <div className="flex justify-between items-center pt-2 border-t border-white/10">
-            <span className="text-gray-400">Transaction ID:</span>
+            <span className="text-muted-foreground">Transaction ID:</span>
             <a 
               href={getHiveExplorerUrl(transactionId)} 
               target="_blank"
@@ -509,7 +509,7 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
             
             {renderTransactionReceipt()}
             
-            <p className="text-lg text-gray-300 mb-6">
+            <p className="text-lg text-muted-foreground mb-6">
               Thank you for supporting {project.title} with {amount} HIVE!
             </p>
             
@@ -521,7 +521,7 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
               <div className="flex justify-center items-center mb-2">
                 {renderPointsBadge()}
               </div>
-              <p className="text-sm text-gray-400">
+              <p className="text-sm text-muted-foreground">
                 Keep contributing to unlock more rewards and exclusive features!
               </p>
             </div>
@@ -545,7 +545,7 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
               </div>
             ) : (
               <div className="space-y-4">
-                <p className="text-sm text-gray-400 mb-2">
+                <p className="text-sm text-muted-foreground mb-2">
                   Share your contribution with others:
                 </p>
                 <div className="flex justify-center space-x-4">
@@ -600,7 +600,7 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
                   {project.category || "Project"}
                 </span>
                 <h2 className="text-3xl font-bold">{project.title}</h2>
-                <p className="text-gray-300">by {project.creator}</p>
+                <p className="text-muted-foreground">by {project.creator}</p>
               </div>
               <Button 
                 variant="ghost" 
@@ -630,13 +630,13 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
             
             <div className="p-6">
               <div className="mb-6">
-                <div className="mb-2 flex justify-between text-sm text-gray-300">
+                <div className="mb-2 flex justify-between text-sm text-muted-foreground">
                   <span>{project.raised}</span>
                   <span>{project.target}</span>
                 </div>
                 <Progress 
                   value={project.progress} 
-                  className="h-3 mb-2 bg-gray-700 progress-animate"
+                  className="h-3 mb-2 bg-muted progress-animate"
                 />
                 <div className="text-right text-sm text-purple-400">
                   {project.progress}% funded
@@ -655,7 +655,7 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
                     
                     <TabsContent value="about" className="space-y-4">
                       <h3 className="text-xl font-semibold">About this project</h3>
-                      <p className="text-gray-300 whitespace-pre-line">{project.description}</p>
+                      <p className="text-muted-foreground whitespace-pre-line">{project.description}</p>
                       
                       <div className="flex space-x-2 mt-6">
                         <Button 
@@ -709,7 +709,7 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
                             <div key={index} className="border border-white/10 rounded-lg p-3 flex justify-between items-center">
                               <div>
                                 <p className="font-medium">@{contributor.username}</p>
-                                <p className="text-sm text-gray-400">{contributor.date}</p>
+                                <p className="text-sm text-muted-foreground">{contributor.date}</p>
                               </div>
                               <div className="flex flex-col items-end">
                                 <div className="text-purple-400 font-semibold">
@@ -720,7 +720,7 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
                                     href={getHiveExplorerUrl(contributor.txId)} 
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-xs text-gray-400 hover:text-purple-400 flex items-center mt-1"
+                                    className="text-xs text-muted-foreground hover:text-purple-400 flex items-center mt-1"
                                   >
                                     View transaction <ExternalLink className="ml-1 h-3 w-3" />
                                   </a>
@@ -730,7 +730,7 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
                           ))}
                         </div>
                       ) : (
-                        <p className="text-gray-400">No contributors yet. Be the first!</p>
+                        <p className="text-muted-foreground">No contributors yet. Be the first!</p>
                       )}
                     </TabsContent>
                     
@@ -738,7 +738,7 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
                       <div className="text-center py-8">
                         <Share2 className="mx-auto h-12 w-12 text-gray-500 mb-4" />
                         <h3 className="text-xl font-semibold mb-2">Project Updates</h3>
-                        <p className="text-gray-400">The creator hasn't posted any updates yet.</p>
+                        <p className="text-muted-foreground">The creator hasn't posted any updates yet.</p>
                       </div>
                     </TabsContent>
                     
@@ -768,14 +768,14 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
                               <div key={item.id} className="border border-white/10 rounded-lg p-4">
                                 <div className="flex justify-between items-start mb-2">
                                   <div className="font-medium">@{item.username}</div>
-                                  <div className="text-xs text-gray-400">{item.date}</div>
+                                  <div className="text-xs text-muted-foreground">{item.date}</div>
                                 </div>
-                                <p className="text-gray-300">{item.text}</p>
+                                <p className="text-muted-foreground">{item.text}</p>
                               </div>
                             ))}
                           </div>
                         ) : (
-                          <p className="text-gray-400 mt-4">No comments yet. Start the conversation!</p>
+                          <p className="text-muted-foreground mt-4">No comments yet. Start the conversation!</p>
                         )}
                       </div>
                     </TabsContent>
@@ -799,7 +799,7 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
                         />
                         
                         {usdValue && (
-                          <div className="text-right text-xs text-gray-400 mt-1">
+                          <div className="text-right text-xs text-muted-foreground mt-1">
                             ≈ {usdValue} USD
                           </div>
                         )}
@@ -823,7 +823,7 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
                         </p>
                       )}
                       
-                      <p className="text-xs text-center text-gray-400 mt-4">
+                      <p className="text-xs text-center text-muted-foreground mt-4">
                         By contributing, you agree to our Terms of Service and the project's funding terms.
                       </p>
                     </form>

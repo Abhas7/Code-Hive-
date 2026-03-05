@@ -260,7 +260,7 @@ const FeaturedProjectsSection = () => {
       <div className="container px-4 md:px-6">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 gradient-text">Featured Projects</h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Discover innovative creators and become part of their journey
           </p>
         </div>
@@ -272,7 +272,7 @@ const FeaturedProjectsSection = () => {
               placeholder="Search projects by title, creator or description..."
               className="pl-10"
             />
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
           </div>
           
           <div className="w-full md:w-auto">
@@ -335,7 +335,7 @@ const FeaturedProjectsSection = () => {
                     <td className="py-3">{project.raised}</td>
                     <td className="py-3 w-32">
                       <div className="flex items-center gap-2">
-                        <Progress value={project.progress} className="h-2 flex-1 bg-gray-700 progress-animate" />
+                        <Progress value={project.progress} className="h-2 flex-1 bg-muted progress-animate" />
                         <span className="text-xs text-purple-400">{project.progress}%</span>
                       </div>
                     </td>
@@ -376,7 +376,7 @@ const FeaturedProjectsSection = () => {
                         </div>
                       ) : index === 1 ? (
                         <div className="flex items-center">
-                          <Trophy className="h-5 w-5 text-gray-400 mr-1" /> 
+                          <Trophy className="h-5 w-5 text-muted-foreground mr-1" /> 
                           #2
                         </div>
                       ) : index === 2 ? (
@@ -419,7 +419,7 @@ const FeaturedProjectsSection = () => {
                     <td className="py-3">
                       <div className="flex items-center gap-2">
                         <motion.div 
-                          className="bg-gray-700 h-2 rounded-full overflow-hidden w-32"
+                          className="bg-muted h-2 rounded-full overflow-hidden w-32"
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -472,14 +472,14 @@ const FeaturedProjectsSection = () => {
                   {project.category}
                 </span>
                 <h3 className="text-xl font-bold mt-2 mb-2">{highlightText(project.title)}</h3>
-                <p className="text-gray-400 mb-4">by {highlightText(project.creator)}</p>
-                <div className="mb-2 flex justify-between text-sm text-gray-300">
+                <p className="text-muted-foreground mb-4">by {highlightText(project.creator)}</p>
+                <div className="mb-2 flex justify-between text-sm text-muted-foreground">
                   <span>{project.raised}</span>
                   <span>{project.target}</span>
                 </div>
                 <Progress 
                   value={project.progress} 
-                  className="h-2 mb-4 bg-gray-700 progress-animate"
+                  className="h-2 mb-4 bg-muted progress-animate"
                 />
                 <div className="flex justify-between items-center">
                   <div className="text-sm text-purple-400">
@@ -505,7 +505,7 @@ const FeaturedProjectsSection = () => {
               <X className="h-8 w-8 text-purple-500" />
             </div>
             <h3 className="text-xl font-semibold mb-2">No matching projects found</h3>
-            <p className="text-gray-400">Try adjusting your search terms or filters to find what you're looking for.</p>
+            <p className="text-muted-foreground">Try adjusting your search terms or filters to find what you're looking for.</p>
             {selectedCategories.length > 0 && (
               <Button 
                 variant="outline" 

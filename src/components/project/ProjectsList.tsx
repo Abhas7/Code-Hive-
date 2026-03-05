@@ -155,7 +155,7 @@ export const ProjectsList = ({ projects }: ProjectsListProps) => {
             
             {userPoints > 0 && (
               <div className="flex items-center space-x-2">
-                <span className="text-sm text-gray-400">Your rank:</span>
+                <span className="text-sm text-muted-foreground">Your rank:</span>
                 <Badge className="bg-purple-600/80">
                   {userPoints} points ({getUserTier(userPoints)})
                 </Badge>
@@ -183,7 +183,7 @@ export const ProjectsList = ({ projects }: ProjectsListProps) => {
                     contributor.tier === 'gold' 
                       ? 'bg-yellow-500/20 border-2 border-yellow-500 text-yellow-500' 
                       : contributor.tier === 'silver' 
-                        ? 'bg-gray-400/20 border-2 border-gray-400 text-gray-400' 
+                        ? 'bg-gray-400/20 border-2 border-gray-400 text-muted-foreground' 
                         : 'bg-amber-700/20 border-2 border-amber-700 text-amber-700'
                   }`}>
                     {contributor.username.substring(0, 2).toUpperCase()}
@@ -201,7 +201,7 @@ export const ProjectsList = ({ projects }: ProjectsListProps) => {
                       contributor.tier === 'gold' 
                         ? 'bg-yellow-900/30' 
                         : contributor.tier === 'silver' 
-                          ? 'bg-gray-700/30' 
+                          ? 'bg-muted/30' 
                           : 'bg-amber-900/30'
                     }`}
                   />

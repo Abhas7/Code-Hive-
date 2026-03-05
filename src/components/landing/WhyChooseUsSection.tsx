@@ -30,7 +30,7 @@ export const WhyChooseUsSection = () => {
       <div className="container px-4 md:px-6">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 gradient-text">Why Choose Us</h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Our Web3 platform offers unique advantages for both creators and supporters
           </p>
         </div>
@@ -52,7 +52,7 @@ export const WhyChooseUsSection = () => {
                 </div>
               </div>
               <h3 className="text-xl font-bold mb-4">{feature.title}</h3>
-              <p className="text-gray-400">{feature.description}</p>
+              <p className="text-muted-foreground">{feature.description}</p>
             </motion.div>
           ))}
         </div>

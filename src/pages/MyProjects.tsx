@@ -115,7 +115,7 @@ const MyProjects = () => {
       <div className="pt-10 pb-10">
         <div className="container px-4 mx-auto">
           <h1 className="text-4xl font-bold mb-4 gradient-text">My Projects</h1>
-          <p className="text-xl text-gray-400 max-w-2xl">
+          <p className="text-xl text-muted-foreground max-w-2xl">
             Manage your created projects, drafts, and contributions
           </p>
           

@@ -22,7 +22,7 @@ export const JoinMovementSection = () => {
             className="glass-card p-10 rounded-2xl text-center"
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4 gradient-text">Join the Movement</h2>
-            <p className="text-xl text-gray-300 mb-8">
+            <p className="text-xl text-muted-foreground mb-8">
               Be part of the decentralized funding revolution and connect with creators around the world
             </p>
 
@@ -35,7 +35,7 @@ export const JoinMovementSection = () => {
               Start a Project
             </Button>
 
-            <p className="mt-6 text-sm text-gray-400">
+            <p className="mt-6 text-sm text-muted-foreground">
               By joining, you agree to our Terms of Service and Privacy Policy
             </p>
           </motion.div>

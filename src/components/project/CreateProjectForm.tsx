@@ -359,13 +359,13 @@ ${data.fundingGoal} HIVE
         <DialogContent className="sm:max-w-[500px] glass-card border-white/10">
           <DialogHeader>
             <DialogTitle className="text-2xl gradient-text">Connect to Start a Project</DialogTitle>
-            <DialogDescription className="text-gray-300">
+            <DialogDescription className="text-muted-foreground">
               Please connect your Hive wallet to create a project on CrowdHive.
             </DialogDescription>
           </DialogHeader>
           <div className="flex flex-col items-center justify-center py-6 space-y-4">
             <AlertCircle className="h-16 w-16 text-yellow-500" />
-            <p className="text-center text-gray-300">
+            <p className="text-center text-muted-foreground">
               You need to connect your Hive wallet before you can create a project.
               Use the wallet connect button in the navigation bar.
             </p>
@@ -387,13 +387,13 @@ ${data.fundingGoal} HIVE
         <DialogContent className="sm:max-w-[500px] glass-card border-white/10">
           <DialogHeader>
             <DialogTitle className="text-2xl gradient-text">Hive Keychain Required</DialogTitle>
-            <DialogDescription className="text-gray-300">
+            <DialogDescription className="text-muted-foreground">
               Please install the Hive Keychain browser extension to create projects.
             </DialogDescription>
           </DialogHeader>
           <div className="flex flex-col items-center justify-center py-6 space-y-4">
             <AlertCircle className="h-16 w-16 text-yellow-500" />
-            <p className="text-center text-gray-300">
+            <p className="text-center text-muted-foreground">
               Hive Keychain extension is required to post content to the Hive blockchain.
               Please install it and reload the page.
             </p>
@@ -417,14 +417,14 @@ ${data.fundingGoal} HIVE
             <Rocket className="mr-2 h-5 w-5" />
             Start a Project
           </DialogTitle>
-          <DialogDescription className="text-gray-300">
+          <DialogDescription className="text-muted-foreground">
             Share your idea with the community and get the funding you need.
           </DialogDescription>
         </DialogHeader>
         
         {/* Progress bar */}
         <div className="mb-6">
-          <div className="flex justify-between text-xs text-gray-400 mb-2">
+          <div className="flex justify-between text-xs text-muted-foreground mb-2">
             <span>Getting Started</span>
             <span>Ready to Submit</span>
           </div>
@@ -439,11 +439,11 @@ ${data.fundingGoal} HIVE
                 className={`mx-auto w-8 h-8 rounded-full flex items-center justify-center text-xs mb-1 transition-colors
                   ${i < step ? 'bg-green-500/20 text-green-400 border border-green-500' :
                     i === step ? 'bg-purple-500/30 text-white border border-purple-500' :
-                    'bg-gray-800/50 text-gray-400 border border-gray-700'}`}
+                    'bg-gray-800/50 text-muted-foreground border border-gray-700'}`}
               >
                 {i < step ? <Check className="h-3 w-3" /> : i + 1}
               </div>
-              <p className={`text-xs truncate ${i === step ? 'text-purple-400 font-medium' : 'text-gray-400'}`}>
+              <p className={`text-xs truncate ${i === step ? 'text-purple-400 font-medium' : 'text-muted-foreground'}`}>
                 {s.title}
               </p>
             </div>
@@ -456,7 +456,7 @@ ${data.fundingGoal} HIVE
             {step === 0 && (
               <div className="space-y-4">
                 <h3 className="text-lg font-medium">Project Basics</h3>
-                <p className="text-gray-400 text-sm">Let's start with the fundamentals of your project.</p>
+                <p className="text-muted-foreground text-sm">Let's start with the fundamentals of your project.</p>
                 
                 <FormField
                   control={form.control}
@@ -516,7 +516,7 @@ ${data.fundingGoal} HIVE
             {step === 1 && (
               <div className="space-y-4">
                 <h3 className="text-lg font-medium">Project Description</h3>
-                <p className="text-gray-400 text-sm">Describe your project in detail to attract supporters.</p>
+                <p className="text-muted-foreground text-sm">Describe your project in detail to attract supporters.</p>
                 
                 <FormField
                   control={form.control}
@@ -545,7 +545,7 @@ ${data.fundingGoal} HIVE
             {step === 2 && (
               <div className="space-y-4">
                 <h3 className="text-lg font-medium">Funding Goals</h3>
-                <p className="text-gray-400 text-sm">Set your funding target and milestones.</p>
+                <p className="text-muted-foreground text-sm">Set your funding target and milestones.</p>
                 
                 <FormField
                   control={form.control}
@@ -563,7 +563,7 @@ ${data.fundingGoal} HIVE
                             {...field} 
                             className="bg-background/50 pl-16"
                           />
-                          <div className="absolute inset-y-0 left-0 flex items-center px-3 pointer-events-none text-gray-400 border-r border-gray-700">
+                          <div className="absolute inset-y-0 left-0 flex items-center px-3 pointer-events-none text-muted-foreground border-r border-gray-700">
                             HIVE
                           </div>
                         </div>
@@ -582,10 +582,10 @@ ${data.fundingGoal} HIVE
                     <Info className="h-5 w-5 text-purple-400 mt-0.5 flex-shrink-0" />
                     <div>
                       <h4 className="text-sm font-medium text-white mb-1">Project Milestones</h4>
-                      <p className="text-xs text-gray-300">
+                      <p className="text-xs text-muted-foreground">
                         Your project will automatically have these funding milestones:
                       </p>
-                      <ul className="text-xs text-gray-300 mt-2 space-y-1 ml-4 list-disc">
+                      <ul className="text-xs text-muted-foreground mt-2 space-y-1 ml-4 list-disc">
                         <li>25% - First milestone reached</li>
                         <li>50% - Halfway to goal</li>
                         <li>75% - Three-quarters funded</li>
@@ -601,7 +601,7 @@ ${data.fundingGoal} HIVE
             {step === 3 && (
               <div className="space-y-4">
                 <h3 className="text-lg font-medium">Project Media</h3>
-                <p className="text-gray-400 text-sm">Upload images to showcase your project.</p>
+                <p className="text-muted-foreground text-sm">Upload images to showcase your project.</p>
                 
                 <FormField
                   control={form.control}
@@ -635,8 +635,8 @@ ${data.fundingGoal} HIVE
                             <div className="flex items-center justify-center w-full">
                               <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer border-gray-700 bg-background/30 hover:bg-background/50">
                                 <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                                  <Camera className="w-8 h-8 mb-3 text-gray-400" />
-                                  <p className="mb-2 text-sm text-gray-400">
+                                  <Camera className="w-8 h-8 mb-3 text-muted-foreground" />
+                                  <p className="mb-2 text-sm text-muted-foreground">
                                     <span className="font-semibold">Click to upload</span> or drag and drop
                                   </p>
                                   <p className="text-xs text-gray-500">
@@ -670,7 +670,7 @@ ${data.fundingGoal} HIVE
             {step === 4 && (
               <div className="space-y-4">
                 <h3 className="text-lg font-medium">Social Links</h3>
-                <p className="text-gray-400 text-sm">Add links to your website and social media profiles.</p>
+                <p className="text-muted-foreground text-sm">Add links to your website and social media profiles.</p>
                 
                 <FormField
                   control={form.control}
@@ -762,18 +762,18 @@ ${data.fundingGoal} HIVE
             {step === 5 && (
               <div className="space-y-6">
                 <h3 className="text-lg font-medium">Review Your Project</h3>
-                <p className="text-gray-400 text-sm">Please review all details before submitting your project.</p>
+                <p className="text-muted-foreground text-sm">Please review all details before submitting your project.</p>
                 
                 <div className="space-y-4">
                   <div className="bg-secondary/20 rounded-lg p-4 space-y-3">
                     <h4 className="font-medium">Basic Information</h4>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <p className="text-sm text-gray-400">Title</p>
+                        <p className="text-sm text-muted-foreground">Title</p>
                         <p className="font-medium">{form.watch("title")}</p>
                       </div>
                       <div>
-                        <p className="text-sm text-gray-400">Category</p>
+                        <p className="text-sm text-muted-foreground">Category</p>
                         <p className="font-medium">{form.watch("category")}</p>
                       </div>
                     </div>
@@ -805,25 +805,25 @@ ${data.fundingGoal} HIVE
                     <div className="space-y-2">
                       {form.watch("socialLinks.website") && (
                         <div className="flex items-center space-x-2">
-                          <span className="text-sm text-gray-400">Website:</span>
+                          <span className="text-sm text-muted-foreground">Website:</span>
                           <span className="text-sm">{form.watch("socialLinks.website")}</span>
                         </div>
                       )}
                       {form.watch("socialLinks.twitter") && (
                         <div className="flex items-center space-x-2">
-                          <span className="text-sm text-gray-400">Twitter:</span>
+                          <span className="text-sm text-muted-foreground">Twitter:</span>
                           <span className="text-sm">{form.watch("socialLinks.twitter")}</span>
                         </div>
                       )}
                       {form.watch("socialLinks.discord") && (
                         <div className="flex items-center space-x-2">
-                          <span className="text-sm text-gray-400">Discord:</span>
+                          <span className="text-sm text-muted-foreground">Discord:</span>
                           <span className="text-sm">{form.watch("socialLinks.discord")}</span>
                         </div>
                       )}
                       {form.watch("socialLinks.github") && (
                         <div className="flex items-center space-x-2">
-                          <span className="text-sm text-gray-400">GitHub:</span>
+                          <span className="text-sm text-muted-foreground">GitHub:</span>
                           <span className="text-sm">{form.watch("socialLinks.github")}</span>
                         </div>
                       )}
@@ -831,7 +831,7 @@ ${data.fundingGoal} HIVE
                        !form.watch("socialLinks.twitter") && 
                        !form.watch("socialLinks.discord") && 
                        !form.watch("socialLinks.github") && (
-                        <p className="text-sm text-gray-400">No social links provided</p>
+                        <p className="text-sm text-muted-foreground">No social links provided</p>
                       )}
                     </div>
                   </div>

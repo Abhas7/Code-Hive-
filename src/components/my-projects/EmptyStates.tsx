@@ -11,7 +11,7 @@ export const NotConnectedState = ({ onNavigateHome }: NotConnectedProps) => (
   <div className="text-center py-20">
     <AlertCircle className="mx-auto h-12 w-12 text-yellow-500 mb-4" />
     <h3 className="text-2xl font-semibold mb-2">Connect Your Wallet</h3>
-    <p className="text-gray-400 mb-6 max-w-md mx-auto">
+    <p className="text-muted-foreground mb-6 max-w-md mx-auto">
       Please connect your Hive wallet to view your projects, drafts, and contributions.
     </p>
     <Button
@@ -60,7 +60,7 @@ export const EmptyProjectsState = ({ onCreateProject, type }: EmptyProjectsProps
   return (
     <div className="text-center py-12">
       <h3 className="text-xl font-semibold mb-4">{title}</h3>
-      <p className="text-gray-400 mb-8 max-w-md mx-auto">
+      <p className="text-muted-foreground mb-8 max-w-md mx-auto">
         {description}
       </p>
       <Button

@@ -89,7 +89,7 @@ const Projects = () => {
       <div className="pt-20 pb-10">
         <div className="container px-4 mx-auto text-center">
           <h1 className="text-4xl font-bold mb-4 gradient-text">Discover Projects</h1>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Explore innovative projects from creators around the world and be part of something amazing
           </p>
         </div>
@@ -126,7 +126,7 @@ const Projects = () => {
         ) : (
           <div className="text-center py-20">
             <h3 className="text-2xl font-semibold mb-4">No Projects Found</h3>
-            <p className="text-gray-400 mb-8">
+            <p className="text-muted-foreground mb-8">
               Be the first to create a project on CrowdHive!
             </p>
             <Button 

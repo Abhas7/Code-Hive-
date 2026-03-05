@@ -86,12 +86,12 @@ export const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
 
       <div className="p-4 flex-1 flex flex-col">
         <h3 className="text-lg font-semibold mb-2 line-clamp-2">{project.title}</h3>
-        <p className="text-gray-400 text-sm mb-4 flex-1">
+        <p className="text-muted-foreground text-sm mb-4 flex-1">
           {truncatedDescription}
         </p>
 
         <div className="mt-auto">
-          <div className="flex justify-between text-sm text-gray-300 mb-1">
+          <div className="flex justify-between text-sm text-muted-foreground mb-1">
             <span>{project.raised}</span>
             <span>{project.target}</span>
           </div>
@@ -102,7 +102,7 @@ export const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
                 ? 'bg-green-900/50' 
                 : project.progress > 70 
                   ? 'bg-purple-900/50' 
-                  : 'bg-gray-700'
+                  : 'bg-muted'
             }`} 
           />
           <div className="flex justify-between items-center">
@@ -117,7 +117,7 @@ export const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
             </div>
             <motion.div 
               whileHover={{ scale: 1.05 }}
-              className="text-xs text-gray-400 hover:text-purple-400 transition-colors"
+              className="text-xs text-muted-foreground hover:text-purple-400 transition-colors"
             >
               by @{project.creator}
             </motion.div>
