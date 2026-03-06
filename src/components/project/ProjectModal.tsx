@@ -513,7 +513,7 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
               Thank you for supporting {project.title} with {amount} HIVE!
             </p>
 
-            <div className="mb-6 p-4 bg-purple-900/20 border border-purple-900/30 rounded-lg">
+            <div className="mb-6 p-4 bg-primary/10 border border-primary/20 rounded-lg">
               <h3 className="text-lg font-semibold mb-2 flex items-center justify-center">
                 <Award className="text-purple-400 mr-2 h-5 w-5" />
                 Your Rewards Status
@@ -596,7 +596,7 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent" />
               <div className="absolute bottom-0 left-0 p-6">
-                <span className="text-xs bg-purple-900/50 text-purple-300 px-2 py-1 rounded-full mb-2 inline-block">
+                <span className="text-xs bg-primary/20 text-primary-foreground px-2 py-1 rounded-full mb-2 inline-block">
                   {project.category || "Project"}
                 </span>
                 <h2 className="text-3xl font-bold">{project.title}</h2>
@@ -706,7 +706,7 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
                       {contributors.length > 0 ? (
                         <div className="space-y-4 max-h-60 overflow-y-auto pr-2">
                           {contributors.map((contributor, index) => (
-                            <div key={index} className="border border-white/10 rounded-lg p-3 flex justify-between items-center">
+                            <div key={index} className="border border-border rounded-lg p-3 flex justify-between items-center">
                               <div>
                                 <p className="font-medium">@{contributor.username}</p>
                                 <p className="text-sm text-muted-foreground">{contributor.date}</p>
@@ -765,7 +765,7 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
                         {comments.length > 0 ? (
                           <div className="space-y-4 mt-4">
                             {comments.map((item) => (
-                              <div key={item.id} className="border border-white/10 rounded-lg p-4">
+                              <div key={item.id} className="border border-border rounded-lg p-4">
                                 <div className="flex justify-between items-start mb-2">
                                   <div className="font-medium">@{item.username}</div>
                                   <div className="text-xs text-muted-foreground">{item.date}</div>

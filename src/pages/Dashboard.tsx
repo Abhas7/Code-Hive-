@@ -153,7 +153,7 @@ const Dashboard = () => {
                         <Button
                             variant="ghost"
                             size="icon"
-                            className="rounded-full bg-white/5 hover:bg-white/10 border border-white/10"
+                            className="rounded-full bg-muted/20 hover:bg-muted/40 border border-border"
                         >
                             <Bell className="h-5 w-5" />
                         </Button>
@@ -229,7 +229,7 @@ const Dashboard = () => {
                         <div className="lg:col-span-2 space-y-8">
                             {/* Analytics Chart */}
                             <motion.div variants={itemVariants}>
-                                <Card className="glass-card border-white/10 bg-black/20 overflow-hidden h-full">
+                                <Card className="glass-card border-border bg-muted/10 overflow-hidden h-full">
                                     <CardHeader className="flex flex-row items-center justify-between">
                                         <div>
                                             <CardTitle className="text-xl">Network Engagement</CardTitle>
@@ -300,12 +300,12 @@ const Dashboard = () => {
                                             <h3 className="text-xl font-bold">Latest Network Activity</h3>
                                             <p className="text-sm text-muted-foreground">Recent project updates on the blockchain</p>
                                         </div>
-                                        <Button variant="ghost" size="sm" className="hover:bg-white/5" onClick={() => navigate('/projects')}>
+                                        <Button variant="ghost" size="sm" className="hover:bg-muted/20" onClick={() => navigate('/projects')}>
                                             Full Report <ChevronRight className="ml-1 h-4 w-4" />
                                         </Button>
                                     </div>
                                     <CardContent className="p-0">
-                                        <div className="divide-y divide-white/5">
+                                        <div className="divide-y divide-border/50">
                                             {isLoading ? (
                                                 [1, 2, 3].map((i) => (
                                                     <div key={i} className="p-6 h-20 bg-muted/20 animate-pulse" />
@@ -314,7 +314,7 @@ const Dashboard = () => {
                                                 recentProjects.map((project, idx) => (
                                                     <div
                                                         key={idx}
-                                                        className="flex items-center justify-between p-5 hover:bg-white/5 transition-all cursor-pointer group"
+                                                        className="flex items-center justify-between p-5 hover:bg-muted/20 transition-all cursor-pointer group"
                                                         onClick={() => navigate('/projects')}
                                                     >
                                                         <div className="flex items-center gap-4">
@@ -329,7 +329,7 @@ const Dashboard = () => {
                                                             <div>
                                                                 <h4 className="font-semibold group-hover:text-primary transition-colors text-lg">{project.title}</h4>
                                                                 <div className="flex items-center gap-2 mt-1">
-                                                                    <span className="text-xs text-muted-foreground bg-white/5 px-2 py-0.5 rounded">@{project.author}</span>
+                                                                    <span className="text-xs text-muted-foreground bg-muted/30 px-2 py-0.5 rounded">@{project.author}</span>
                                                                     <span className="text-xs text-muted-foreground">
                                                                         {new Date(project.created).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
                                                                     </span>
@@ -395,12 +395,12 @@ const Dashboard = () => {
                                                 <span className="text-muted-foreground">Wallet RC Usage</span>
                                                 <span className="font-mono font-bold text-indigo-400">98.4%</span>
                                             </div>
-                                            <div className="w-full bg-white/5 h-2 rounded-full overflow-hidden">
+                                            <div className="w-full bg-muted/30 h-2 rounded-full overflow-hidden">
                                                 <div className="bg-gradient-to-r from-indigo-500 to-purple-500 h-full w-[98.4%] animate-shimmer" />
                                             </div>
                                         </div>
 
-                                        <Button variant="outline" size="sm" className="w-full bg-white/5 border-white/10 text-xs py-5 rounded-xl hover:bg-white/10" asChild>
+                                        <Button variant="outline" size="sm" className="w-full bg-muted/20 border-border text-xs py-5 rounded-xl hover:bg-muted/30" asChild>
                                             <a href="https://hiveblocks.com" target="_blank" rel="noopener noreferrer">
                                                 View Blocks <ExternalLink className="ml-2 h-3 w-3" />
                                             </a>
@@ -411,7 +411,7 @@ const Dashboard = () => {
 
                             {/* Upcoming Events */}
                             <motion.div variants={itemVariants}>
-                                <Card className="glass-card border-purple-500/20 bg-black/20">
+                                <Card className="glass-card border-purple-500/20 bg-muted/10">
                                     <CardHeader>
                                         <CardTitle className="text-lg flex items-center gap-2">
                                             <div className="p-1.5 rounded-lg bg-purple-500/20">
@@ -421,7 +421,7 @@ const Dashboard = () => {
                                         </CardTitle>
                                     </CardHeader>
                                     <CardContent className="space-y-4">
-                                        <div className="group p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-purple-500/30 transition-all cursor-pointer">
+                                        <div className="group p-4 rounded-2xl bg-muted/20 border border-border hover:border-purple-500/30 transition-all cursor-pointer">
                                             <div className="flex justify-between items-start mb-2">
                                                 <span className="text-[10px] font-bold tracking-widest text-purple-400 uppercase">Token Launch</span>
                                                 <Badge variant="outline" className="text-[9px] h-4 border-purple-500/50">T-48H</Badge>
@@ -444,7 +444,7 @@ const Dashboard = () => {
 
                             {/* Settings Shortcut */}
                             <motion.div variants={itemVariants}>
-                                <Card className="glass-card border-white/5 bg-transparent hover:bg-white/5 transition-all cursor-pointer">
+                                <Card className="glass-card border-border/50 bg-transparent hover:bg-muted/10 transition-all cursor-pointer">
                                     <CardContent className="p-4 flex items-center justify-between">
                                         <div className="flex items-center gap-3">
                                             <div className="p-2 rounded-lg bg-secondary text-muted-foreground">
@@ -483,12 +483,12 @@ const StatCard = ({ title, value, icon, description, trend, color }: StatCardPro
     };
 
     return (
-        <Card className={`glass-card bg-gradient-to-br ${colorClasses[color]} border-white/10 transition-all hover:translate-y-[-4px] overflow-hidden group`}>
+        <Card className={`glass-card bg-gradient-to-br ${colorClasses[color]} border-border transition-all hover:translate-y-[-4px] overflow-hidden group`}>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors uppercase tracking-wider">
                     {title}
                 </CardTitle>
-                <div className="p-2 rounded-xl bg-black/20 group-hover:scale-110 transition-transform">
+                <div className="p-2 rounded-xl bg-muted/40 group-hover:scale-110 transition-transform">
                     {icon}
                 </div>
             </CardHeader>

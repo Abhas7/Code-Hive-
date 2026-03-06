@@ -1,21 +1,21 @@
 
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { 
+import {
   Dialog,
-  DialogContent, 
-  DialogHeader, 
+  DialogContent,
+  DialogHeader,
   DialogTitle,
   DialogDescription,
   DialogFooter
 } from "@/components/ui/dialog";
-import { 
-  Tabs, 
-  TabsContent, 
-  TabsList, 
-  TabsTrigger 
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger
 } from "@/components/ui/tabs";
-import { 
+import {
   Form,
   FormControl,
   FormDescription,
@@ -24,7 +24,7 @@ import {
   FormLabel,
   FormMessage
 } from "@/components/ui/form";
-import { 
+import {
   Select,
   SelectContent,
   SelectItem,
@@ -37,24 +37,24 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
-import { 
-  X, 
-  Camera, 
-  Upload, 
-  FileImage, 
-  Check, 
-  AlertCircle, 
-  Info, 
-  Rocket, 
-  ArrowRight, 
-  ArrowLeft, 
-  Save 
+import {
+  X,
+  Camera,
+  Upload,
+  FileImage,
+  Check,
+  AlertCircle,
+  Info,
+  Rocket,
+  ArrowRight,
+  ArrowLeft,
+  Save
 } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { 
-  getConnectedUsername, 
+import {
+  getConnectedUsername,
   postProject,
   isKeychainInstalled
 } from "@/utils/hive";
@@ -118,9 +118,9 @@ export function CreateProjectForm({ isOpen, onClose }: { isOpen: boolean; onClos
       setIsAuthenticated(!!username);
       setIsKeychainAvailable(isKeychainInstalled());
     };
-    
+
     checkAuth();
-    
+
     // Check authentication status when the form opens
     if (isOpen) {
       checkAuth();
@@ -167,7 +167,7 @@ export function CreateProjectForm({ isOpen, onClose }: { isOpen: boolean; onClos
   const onSubmit = async (data: ProjectFormValues) => {
     // Check if user is connected with Hive Keychain
     const username = getConnectedUsername();
-    
+
     if (!username) {
       toast({
         title: "Authentication Error",
@@ -176,7 +176,7 @@ export function CreateProjectForm({ isOpen, onClose }: { isOpen: boolean; onClos
       });
       return;
     }
-    
+
     if (!isKeychainAvailable) {
       toast({
         title: "Hive Keychain Required",
@@ -185,9 +185,9 @@ export function CreateProjectForm({ isOpen, onClose }: { isOpen: boolean; onClos
       });
       return;
     }
-    
+
     setIsSubmitting(true);
-    
+
     try {
       // Format project body with markdown
       const projectBody = `
@@ -205,7 +205,7 @@ ${data.fundingGoal} HIVE
 ---
 *Posted via CrowdHive - Decentralized crowdfunding on the Hive blockchain*
       `;
-      
+
       // Post the project to Hive blockchain
       const result = await postProject(
         username,
@@ -216,20 +216,20 @@ ${data.fundingGoal} HIVE
         data.coverImage || null,
         data.socialLinks
       );
-      
+
       if (result.success) {
         toast({
           title: "Project submitted!",
           description: "Your project has been successfully posted to the Hive blockchain.",
         });
-        
+
         // Close modal and redirect to projects page
         onClose();
         navigate('/projects');
       } else {
         throw new Error(result.message);
       }
-      
+
     } catch (error: any) {
       console.error("Error creating project:", error);
       toast({
@@ -244,7 +244,7 @@ ${data.fundingGoal} HIVE
 
   const saveAsDraft = async () => {
     const username = getConnectedUsername();
-    
+
     if (!username) {
       toast({
         title: "Authentication Error",
@@ -253,13 +253,13 @@ ${data.fundingGoal} HIVE
       });
       return;
     }
-    
+
     setSavingDraft(true);
-    
+
     try {
       // Get the current form values, even if they're not complete
       const currentValues = form.getValues();
-      
+
       // Only require title for draft
       if (!currentValues.title || currentValues.title.length < 3) {
         toast({
@@ -270,10 +270,10 @@ ${data.fundingGoal} HIVE
         setSavingDraft(false);
         return;
       }
-      
+
       // Store the draft locally since we can't save incomplete projects to blockchain yet
       const drafts = JSON.parse(localStorage.getItem('projectDrafts') || '[]');
-      
+
       const draft = {
         id: Date.now().toString(),
         title: currentValues.title,
@@ -286,18 +286,18 @@ ${data.fundingGoal} HIVE
         status: 'draft',
         created_at: new Date().toISOString()
       };
-      
+
       drafts.push(draft);
       localStorage.setItem('projectDrafts', JSON.stringify(drafts));
-      
+
       toast({
         title: "Draft saved!",
         description: "Your project draft has been saved locally. Access it from 'My Projects'.",
       });
-      
+
       // Close modal
       onClose();
-      
+
     } catch (error) {
       console.error("Error saving draft:", error);
       toast({
@@ -340,7 +340,7 @@ ${data.fundingGoal} HIVE
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
-      
+
       // In a real implementation, you would upload to IPFS or another decentralized storage
       // For now, we'll use a data URL
       const reader = new FileReader();
@@ -356,7 +356,7 @@ ${data.fundingGoal} HIVE
   if (!isAuthenticated) {
     return (
       <Dialog open={isOpen} onOpenChange={onClose}>
-        <DialogContent className="sm:max-w-[500px] glass-card border-white/10">
+        <DialogContent className="sm:max-w-[500px] glass-card border-border">
           <DialogHeader>
             <DialogTitle className="text-2xl gradient-text">Connect to Start a Project</DialogTitle>
             <DialogDescription className="text-muted-foreground">
@@ -369,7 +369,7 @@ ${data.fundingGoal} HIVE
               You need to connect your Hive wallet before you can create a project.
               Use the wallet connect button in the navigation bar.
             </p>
-            <Button 
+            <Button
               onClick={onClose}
               className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700"
             >
@@ -384,7 +384,7 @@ ${data.fundingGoal} HIVE
   if (!isKeychainAvailable) {
     return (
       <Dialog open={isOpen} onOpenChange={onClose}>
-        <DialogContent className="sm:max-w-[500px] glass-card border-white/10">
+        <DialogContent className="sm:max-w-[500px] glass-card border-border">
           <DialogHeader>
             <DialogTitle className="text-2xl gradient-text">Hive Keychain Required</DialogTitle>
             <DialogDescription className="text-muted-foreground">
@@ -397,7 +397,7 @@ ${data.fundingGoal} HIVE
               Hive Keychain extension is required to post content to the Hive blockchain.
               Please install it and reload the page.
             </p>
-            <Button 
+            <Button
               onClick={() => window.open("https://hive-keychain.com", "_blank")}
               className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700"
             >
@@ -411,7 +411,7 @@ ${data.fundingGoal} HIVE
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl h-[90vh] overflow-y-auto glass-card border-white/10">
+      <DialogContent className="max-w-4xl h-[90vh] overflow-y-auto glass-card border-border">
         <DialogHeader>
           <DialogTitle className="text-2xl gradient-text flex items-center">
             <Rocket className="mr-2 h-5 w-5" />
@@ -421,7 +421,7 @@ ${data.fundingGoal} HIVE
             Share your idea with the community and get the funding you need.
           </DialogDescription>
         </DialogHeader>
-        
+
         {/* Progress bar */}
         <div className="mb-6">
           <div className="flex justify-between text-xs text-muted-foreground mb-2">
@@ -430,16 +430,16 @@ ${data.fundingGoal} HIVE
           </div>
           <Progress value={(step / (steps.length - 1)) * 100} className="h-2" />
         </div>
-        
+
         {/* Steps indicator */}
         <div className="grid grid-cols-6 gap-2 mb-6">
           {steps.map((s, i) => (
             <div key={i} className="text-center">
-              <div 
+              <div
                 className={`mx-auto w-8 h-8 rounded-full flex items-center justify-center text-xs mb-1 transition-colors
                   ${i < step ? 'bg-green-500/20 text-green-400 border border-green-500' :
                     i === step ? 'bg-purple-500/30 text-white border border-purple-500' :
-                    'bg-gray-800/50 text-muted-foreground border border-gray-700'}`}
+                      'bg-muted/50 text-muted-foreground border border-border'}`}
               >
                 {i < step ? <Check className="h-3 w-3" /> : i + 1}
               </div>
@@ -449,7 +449,7 @@ ${data.fundingGoal} HIVE
             </div>
           ))}
         </div>
-        
+
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             {/* Step 1: Basic Info */}
@@ -457,7 +457,7 @@ ${data.fundingGoal} HIVE
               <div className="space-y-4">
                 <h3 className="text-lg font-medium">Project Basics</h3>
                 <p className="text-muted-foreground text-sm">Let's start with the fundamentals of your project.</p>
-                
+
                 <FormField
                   control={form.control}
                   name="title"
@@ -465,9 +465,9 @@ ${data.fundingGoal} HIVE
                     <FormItem>
                       <FormLabel>Project Title</FormLabel>
                       <FormControl>
-                        <Input 
-                          placeholder="Enter a clear, specific title" 
-                          {...field} 
+                        <Input
+                          placeholder="Enter a clear, specific title"
+                          {...field}
                           className="bg-background/50"
                         />
                       </FormControl>
@@ -478,15 +478,15 @@ ${data.fundingGoal} HIVE
                     </FormItem>
                   )}
                 />
-                
+
                 <FormField
                   control={form.control}
                   name="category"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Project Category</FormLabel>
-                      <Select 
-                        onValueChange={field.onChange} 
+                      <Select
+                        onValueChange={field.onChange}
                         defaultValue={field.value}
                       >
                         <FormControl>
@@ -511,13 +511,13 @@ ${data.fundingGoal} HIVE
                 />
               </div>
             )}
-            
+
             {/* Step 2: Description */}
             {step === 1 && (
               <div className="space-y-4">
                 <h3 className="text-lg font-medium">Project Description</h3>
                 <p className="text-muted-foreground text-sm">Describe your project in detail to attract supporters.</p>
-                
+
                 <FormField
                   control={form.control}
                   name="description"
@@ -525,9 +525,9 @@ ${data.fundingGoal} HIVE
                     <FormItem>
                       <FormLabel>Description</FormLabel>
                       <FormControl>
-                        <Textarea 
-                          placeholder="Describe your project in detail. What is it? Why does it matter? How will you execute it?" 
-                          {...field} 
+                        <Textarea
+                          placeholder="Describe your project in detail. What is it? Why does it matter? How will you execute it?"
+                          {...field}
                           className="min-h-[200px] bg-background/50 resize-y"
                         />
                       </FormControl>
@@ -540,13 +540,13 @@ ${data.fundingGoal} HIVE
                 />
               </div>
             )}
-            
+
             {/* Step 3: Funding */}
             {step === 2 && (
               <div className="space-y-4">
                 <h3 className="text-lg font-medium">Funding Goals</h3>
                 <p className="text-muted-foreground text-sm">Set your funding target and milestones.</p>
-                
+
                 <FormField
                   control={form.control}
                   name="fundingGoal"
@@ -555,15 +555,15 @@ ${data.fundingGoal} HIVE
                       <FormLabel>Funding Goal (HIVE)</FormLabel>
                       <FormControl>
                         <div className="relative">
-                          <Input 
-                            type="number" 
+                          <Input
+                            type="number"
                             min="10"
                             step="0.1"
-                            placeholder="e.g., 1000" 
-                            {...field} 
+                            placeholder="e.g., 1000"
+                            {...field}
                             className="bg-background/50 pl-16"
                           />
-                          <div className="absolute inset-y-0 left-0 flex items-center px-3 pointer-events-none text-muted-foreground border-r border-gray-700">
+                          <div className="absolute inset-y-0 left-0 flex items-center px-3 pointer-events-none text-muted-foreground border-r border-border">
                             HIVE
                           </div>
                         </div>
@@ -575,7 +575,7 @@ ${data.fundingGoal} HIVE
                     </FormItem>
                   )}
                 />
-                
+
                 {/* Project milestones info */}
                 <div className="bg-secondary/40 p-4 rounded-lg border border-purple-900/30">
                   <div className="flex items-start gap-3">
@@ -596,13 +596,13 @@ ${data.fundingGoal} HIVE
                 </div>
               </div>
             )}
-            
+
             {/* Step 4: Media */}
             {step === 3 && (
               <div className="space-y-4">
                 <h3 className="text-lg font-medium">Project Media</h3>
                 <p className="text-muted-foreground text-sm">Upload images to showcase your project.</p>
-                
+
                 <FormField
                   control={form.control}
                   name="coverImage"
@@ -612,10 +612,10 @@ ${data.fundingGoal} HIVE
                       <FormControl>
                         <div className="space-y-3">
                           {tempCoverImage ? (
-                            <div className="relative w-full h-48 bg-gray-800 rounded-lg overflow-hidden">
-                              <img 
-                                src={tempCoverImage} 
-                                alt="Cover preview" 
+                            <div className="relative w-full h-48 bg-muted rounded-lg overflow-hidden">
+                              <img
+                                src={tempCoverImage}
+                                alt="Cover preview"
                                 className="w-full h-full object-cover"
                               />
                               <Button
@@ -633,7 +633,7 @@ ${data.fundingGoal} HIVE
                             </div>
                           ) : (
                             <div className="flex items-center justify-center w-full">
-                              <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer border-gray-700 bg-background/30 hover:bg-background/50">
+                              <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer border-border bg-background/30 hover:bg-background/50">
                                 <div className="flex flex-col items-center justify-center pt-5 pb-6">
                                   <Camera className="w-8 h-8 mb-3 text-muted-foreground" />
                                   <p className="mb-2 text-sm text-muted-foreground">
@@ -643,9 +643,9 @@ ${data.fundingGoal} HIVE
                                     SVG, PNG, JPG or GIF (MAX. 800x400px)
                                   </p>
                                 </div>
-                                <input 
-                                  type="file" 
-                                  className="hidden" 
+                                <input
+                                  type="file"
+                                  className="hidden"
                                   accept="image/*"
                                   onChange={handleImageUpload}
                                 />
@@ -661,17 +661,17 @@ ${data.fundingGoal} HIVE
                     </FormItem>
                   )}
                 />
-                
+
                 {/* Additional media uploads would go here in a full implementation */}
               </div>
             )}
-            
+
             {/* Step 5: Social Links */}
             {step === 4 && (
               <div className="space-y-4">
                 <h3 className="text-lg font-medium">Social Links</h3>
                 <p className="text-muted-foreground text-sm">Add links to your website and social media profiles.</p>
-                
+
                 <FormField
                   control={form.control}
                   name="socialLinks.website"
@@ -679,9 +679,9 @@ ${data.fundingGoal} HIVE
                     <FormItem>
                       <FormLabel>Website</FormLabel>
                       <FormControl>
-                        <Input 
-                          placeholder="https://yourwebsite.com" 
-                          {...field} 
+                        <Input
+                          placeholder="https://yourwebsite.com"
+                          {...field}
                           className="bg-background/50"
                         />
                       </FormControl>
@@ -692,7 +692,7 @@ ${data.fundingGoal} HIVE
                     </FormItem>
                   )}
                 />
-                
+
                 <FormField
                   control={form.control}
                   name="socialLinks.twitter"
@@ -700,9 +700,9 @@ ${data.fundingGoal} HIVE
                     <FormItem>
                       <FormLabel>Twitter</FormLabel>
                       <FormControl>
-                        <Input 
-                          placeholder="https://twitter.com/yourusername" 
-                          {...field} 
+                        <Input
+                          placeholder="https://twitter.com/yourusername"
+                          {...field}
                           className="bg-background/50"
                         />
                       </FormControl>
@@ -713,7 +713,7 @@ ${data.fundingGoal} HIVE
                     </FormItem>
                   )}
                 />
-                
+
                 <FormField
                   control={form.control}
                   name="socialLinks.discord"
@@ -721,9 +721,9 @@ ${data.fundingGoal} HIVE
                     <FormItem>
                       <FormLabel>Discord</FormLabel>
                       <FormControl>
-                        <Input 
-                          placeholder="https://discord.gg/invite" 
-                          {...field} 
+                        <Input
+                          placeholder="https://discord.gg/invite"
+                          {...field}
                           className="bg-background/50"
                         />
                       </FormControl>
@@ -734,7 +734,7 @@ ${data.fundingGoal} HIVE
                     </FormItem>
                   )}
                 />
-                
+
                 <FormField
                   control={form.control}
                   name="socialLinks.github"
@@ -742,9 +742,9 @@ ${data.fundingGoal} HIVE
                     <FormItem>
                       <FormLabel>GitHub</FormLabel>
                       <FormControl>
-                        <Input 
-                          placeholder="https://github.com/yourusername" 
-                          {...field} 
+                        <Input
+                          placeholder="https://github.com/yourusername"
+                          {...field}
                           className="bg-background/50"
                         />
                       </FormControl>
@@ -757,13 +757,13 @@ ${data.fundingGoal} HIVE
                 />
               </div>
             )}
-            
+
             {/* Step 6: Review */}
             {step === 5 && (
               <div className="space-y-6">
                 <h3 className="text-lg font-medium">Review Your Project</h3>
                 <p className="text-muted-foreground text-sm">Please review all details before submitting your project.</p>
-                
+
                 <div className="space-y-4">
                   <div className="bg-secondary/20 rounded-lg p-4 space-y-3">
                     <h4 className="font-medium">Basic Information</h4>
@@ -778,28 +778,28 @@ ${data.fundingGoal} HIVE
                       </div>
                     </div>
                   </div>
-                  
+
                   <div className="bg-secondary/20 rounded-lg p-4">
                     <h4 className="font-medium mb-2">Description</h4>
                     <p className="text-sm whitespace-pre-line">{form.watch("description")}</p>
                   </div>
-                  
+
                   <div className="bg-secondary/20 rounded-lg p-4">
                     <h4 className="font-medium mb-2">Funding Goal</h4>
                     <p className="font-medium text-purple-400">{form.watch("fundingGoal")} HIVE</p>
                   </div>
-                  
+
                   {tempCoverImage && (
                     <div className="bg-secondary/20 rounded-lg p-4">
                       <h4 className="font-medium mb-2">Cover Image</h4>
-                      <img 
-                        src={tempCoverImage} 
-                        alt="Cover preview" 
+                      <img
+                        src={tempCoverImage}
+                        alt="Cover preview"
                         className="w-full h-40 object-cover rounded-md"
                       />
                     </div>
                   )}
-                  
+
                   <div className="bg-secondary/20 rounded-lg p-4 space-y-3">
                     <h4 className="font-medium">Social Links</h4>
                     <div className="space-y-2">
@@ -827,16 +827,16 @@ ${data.fundingGoal} HIVE
                           <span className="text-sm">{form.watch("socialLinks.github")}</span>
                         </div>
                       )}
-                      {!form.watch("socialLinks.website") && 
-                       !form.watch("socialLinks.twitter") && 
-                       !form.watch("socialLinks.discord") && 
-                       !form.watch("socialLinks.github") && (
-                        <p className="text-sm text-muted-foreground">No social links provided</p>
-                      )}
+                      {!form.watch("socialLinks.website") &&
+                        !form.watch("socialLinks.twitter") &&
+                        !form.watch("socialLinks.discord") &&
+                        !form.watch("socialLinks.github") && (
+                          <p className="text-sm text-muted-foreground">No social links provided</p>
+                        )}
                     </div>
                   </div>
                 </div>
-                
+
                 <FormField
                   control={form.control}
                   name="termsAccepted"
@@ -859,14 +859,14 @@ ${data.fundingGoal} HIVE
                 />
               </div>
             )}
-            
+
             {/* Navigation buttons */}
-            <div className="flex justify-between pt-4 border-t border-gray-800">
+            <div className="flex justify-between pt-4 border-t border-border">
               <div>
                 {step > 0 && (
-                  <Button 
-                    type="button" 
-                    variant="outline" 
+                  <Button
+                    type="button"
+                    variant="outline"
                     onClick={prevStep}
                     className="bg-secondary/20"
                   >
@@ -875,11 +875,11 @@ ${data.fundingGoal} HIVE
                   </Button>
                 )}
               </div>
-              
+
               <div className="flex space-x-2">
-                <Button 
-                  type="button" 
-                  variant="outline" 
+                <Button
+                  type="button"
+                  variant="outline"
                   onClick={saveAsDraft}
                   disabled={savingDraft}
                   className="bg-secondary/20"
@@ -887,10 +887,10 @@ ${data.fundingGoal} HIVE
                   <Save className="mr-2 h-4 w-4" />
                   {savingDraft ? "Saving..." : "Save Draft"}
                 </Button>
-                
+
                 {step < steps.length - 1 ? (
-                  <Button 
-                    type="button" 
+                  <Button
+                    type="button"
                     onClick={nextStep}
                     className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700"
                   >
@@ -898,7 +898,7 @@ ${data.fundingGoal} HIVE
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 ) : (
-                  <Button 
+                  <Button
                     type="submit"
                     disabled={isSubmitting || !form.watch("termsAccepted")}
                     className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700"

@@ -59,14 +59,14 @@ const categoryImages = {
 
 const generateProjects = (count: number, startId: number): Project[] => {
   const categories = ["Art", "Tech", "Community", "Gaming", "Environment", "Education", "Finance", "Health"];
-  
+
   return Array.from({ length: count }).map((_, index) => {
     const id = startId + index;
     const progress = Math.floor(Math.random() * 100);
     const target = `${(Math.floor(Math.random() * 20) + 5) * 1000} HIVE`;
     const raised = `${Math.floor(progress * parseInt(target) / 100)} HIVE`;
     const category = categories[id % categories.length];
-    
+
     return {
       id: id.toString(),
       title: `Project ${id}`,
@@ -163,7 +163,7 @@ const FeaturedProjectsSection = () => {
   const loadMoreProjects = () => {
     const newProjects = generateProjects(8, projects.length + 1);
     setProjects([...projects, ...newProjects]);
-    
+
     toast({
       title: "Projects loaded",
       description: "8 more projects have been loaded",
@@ -197,20 +197,20 @@ const FeaturedProjectsSection = () => {
   };
 
   const filteredProjects = projects.filter(project => {
-    const matchesSearch = !searchTerm.trim() || 
-                          project.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                          project.creator.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          project.description.toLowerCase().includes(searchTerm.toLowerCase());
-    
-    const matchesCategory = selectedCategories.length === 0 || 
-                            selectedCategories.includes(project.category);
-    
+    const matchesSearch = !searchTerm.trim() ||
+      project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      project.creator.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      project.description.toLowerCase().includes(searchTerm.toLowerCase());
+
+    const matchesCategory = selectedCategories.length === 0 ||
+      selectedCategories.includes(project.category);
+
     return matchesSearch && matchesCategory;
   });
 
   const highlightText = (text: string) => {
     if (highlightedTerms.length === 0) return text;
-    
+
     let highlightedText = text;
     highlightedTerms.forEach(term => {
       if (term.length > 2) {
@@ -218,7 +218,7 @@ const FeaturedProjectsSection = () => {
         highlightedText = highlightedText.replace(regex, '<mark class="bg-purple-400/30 text-inherit px-1 rounded">$1</mark>');
       }
     });
-    
+
     return <span dangerouslySetInnerHTML={{ __html: highlightedText }} />;
   };
 
@@ -231,7 +231,7 @@ const FeaturedProjectsSection = () => {
   };
 
   const getContributorTierBadge = (tier: string) => {
-    switch(tier) {
+    switch (tier) {
       case "gold":
         return (
           <Badge className="ml-2 bg-yellow-500/80 text-yellow-100">
@@ -264,7 +264,7 @@ const FeaturedProjectsSection = () => {
             Discover innovative creators and become part of their journey
           </p>
         </div>
-        
+
         <div className="mb-10 flex flex-col md:flex-row gap-4 items-start justify-between">
           <div className="w-full md:w-1/2 relative">
             <Input
@@ -274,19 +274,19 @@ const FeaturedProjectsSection = () => {
             />
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
           </div>
-          
+
           <div className="w-full md:w-auto">
             <p className="mb-2 font-medium">Filter by category:</p>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-2">
               {categories.map(category => (
                 <div key={category} className="flex items-center space-x-2">
-                  <Checkbox 
-                    id={`category-${category}`} 
+                  <Checkbox
+                    id={`category-${category}`}
                     checked={selectedCategories.includes(category)}
                     onCheckedChange={() => toggleCategoryFilter(category)}
                     className="data-[state=checked]:bg-purple-500"
                   />
-                  <Label 
+                  <Label
                     htmlFor={`category-${category}`}
                     className="text-sm cursor-pointer"
                   >
@@ -297,33 +297,33 @@ const FeaturedProjectsSection = () => {
             </div>
           </div>
         </div>
-        
+
         <div className="mb-12 glass-card p-6 rounded-xl">
           <h3 className="text-2xl font-bold mb-4 gradient-text">Top Funded Projects</h3>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-white/10">
-                  <th className="text-left py-2">Rank</th>
-                  <th className="text-left py-2">Project</th>
-                  <th className="text-left py-2">Creator</th>
-                  <th className="text-left py-2">Funding</th>
-                  <th className="text-left py-2">Progress</th>
+                <tr className="border-b border-border">
+                  <th className="text-left py-2 text-muted-foreground">Rank</th>
+                  <th className="text-left py-2 text-muted-foreground">Project</th>
+                  <th className="text-left py-2 text-muted-foreground">Creator</th>
+                  <th className="text-left py-2 text-muted-foreground">Funding</th>
+                  <th className="text-left py-2 text-muted-foreground">Progress</th>
                 </tr>
               </thead>
               <tbody>
                 {topProjects.map((project, index) => (
-                  <tr 
-                    key={project.id} 
-                    className="border-b border-white/5 hover:bg-white/5 cursor-pointer transition-colors"
+                  <tr
+                    key={project.id}
+                    className="border-b border-border/50 hover:bg-muted/50 cursor-pointer transition-colors"
                     onClick={() => openProjectModal(project)}
                   >
                     <td className="py-3 font-medium">#{index + 1}</td>
                     <td className="py-3">
                       <div className="flex items-center gap-3">
-                        <img 
-                          src={project.image} 
-                          alt={project.title} 
+                        <img
+                          src={project.image}
+                          alt={project.title}
                           className="w-10 h-10 rounded-md object-cover lazy-image"
                           loading="lazy"
                           onLoad={handleImageLoad}
@@ -361,9 +361,9 @@ const FeaturedProjectsSection = () => {
               </thead>
               <tbody>
                 {leaderboardUsers.map((user, index) => (
-                  <motion.tr 
-                    key={user.username} 
-                    className="border-b border-white/5 hover:bg-white/5"
+                  <motion.tr
+                    key={user.username}
+                    className="border-b border-border/50 hover:bg-muted/50"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3, delay: index * 0.1 }}
@@ -371,17 +371,17 @@ const FeaturedProjectsSection = () => {
                     <td className="py-3 font-medium">
                       {index === 0 ? (
                         <div className="flex items-center">
-                          <Trophy className="h-5 w-5 text-yellow-500 mr-1" /> 
+                          <Trophy className="h-5 w-5 text-yellow-500 mr-1" />
                           #1
                         </div>
                       ) : index === 1 ? (
                         <div className="flex items-center">
-                          <Trophy className="h-5 w-5 text-muted-foreground mr-1" /> 
+                          <Trophy className="h-5 w-5 text-muted-foreground mr-1" />
                           #2
                         </div>
                       ) : index === 2 ? (
                         <div className="flex items-center">
-                          <Trophy className="h-5 w-5 text-amber-700 mr-1" /> 
+                          <Trophy className="h-5 w-5 text-amber-700 mr-1" />
                           #3
                         </div>
                       ) : (
@@ -390,14 +390,13 @@ const FeaturedProjectsSection = () => {
                     </td>
                     <td className="py-3">
                       <div className="flex items-center gap-3">
-                        <div 
-                          className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                            user.tier === 'gold' 
-                              ? 'bg-yellow-500/20 border-2 border-yellow-500' 
-                              : user.tier === 'silver' 
-                                ? 'bg-gray-400/20 border-2 border-gray-400' 
+                        <div
+                          className={`w-8 h-8 rounded-full flex items-center justify-center ${user.tier === 'gold'
+                              ? 'bg-yellow-500/20 border-2 border-yellow-500'
+                              : user.tier === 'silver'
+                                ? 'bg-gray-400/20 border-2 border-gray-400'
                                 : 'bg-amber-700/20 border-2 border-amber-700'
-                          }`}
+                            }`}
                         >
                           {user.username.substring(0, 2).toUpperCase()}
                         </div>
@@ -418,20 +417,19 @@ const FeaturedProjectsSection = () => {
                     </td>
                     <td className="py-3">
                       <div className="flex items-center gap-2">
-                        <motion.div 
+                        <motion.div
                           className="bg-muted h-2 rounded-full overflow-hidden w-32"
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           transition={{ duration: 0.5, delay: index * 0.1 }}
                         >
-                          <motion.div 
-                            className={`h-full ${
-                              user.tier === 'gold' 
-                                ? 'bg-yellow-500' 
-                                : user.tier === 'silver' 
-                                  ? 'bg-gray-400' 
+                          <motion.div
+                            className={`h-full ${user.tier === 'gold'
+                                ? 'bg-yellow-500'
+                                : user.tier === 'silver'
+                                  ? 'bg-gray-400'
                                   : 'bg-amber-700'
-                            }`}
+                              }`}
                             initial={{ width: 0 }}
                             animate={{ width: `${(user.contributions / 2500) * 100}%` }}
                             transition={{ duration: 1, delay: index * 0.1 + 0.3 }}
@@ -477,16 +475,16 @@ const FeaturedProjectsSection = () => {
                   <span>{project.raised}</span>
                   <span>{project.target}</span>
                 </div>
-                <Progress 
-                  value={project.progress} 
+                <Progress
+                  value={project.progress}
                   className="h-2 mb-4 bg-muted progress-animate"
                 />
                 <div className="flex justify-between items-center">
                   <div className="text-sm text-purple-400">
                     {project.progress}% funded
                   </div>
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     size="sm"
                     onClick={() => openProjectModal(project)}
                     className="transition-all hover:bg-purple-500/20"
@@ -507,8 +505,8 @@ const FeaturedProjectsSection = () => {
             <h3 className="text-xl font-semibold mb-2">No matching projects found</h3>
             <p className="text-muted-foreground">Try adjusting your search terms or filters to find what you're looking for.</p>
             {selectedCategories.length > 0 && (
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 className="mt-4"
                 onClick={() => setSelectedCategories([])}
               >
@@ -519,7 +517,7 @@ const FeaturedProjectsSection = () => {
         )}
 
         <div className="mt-12 text-center">
-          <Button 
+          <Button
             onClick={loadMoreProjects}
             className="gradient-border bg-accent/30 hover:bg-accent/50 px-6 py-3 rounded-lg text-white font-medium transition-all duration-300"
           >
@@ -527,11 +525,11 @@ const FeaturedProjectsSection = () => {
           </Button>
         </div>
       </div>
-      
-      <ProjectModal 
-        project={selectedProject} 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
+
+      <ProjectModal
+        project={selectedProject}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
       />
     </section>
   );
