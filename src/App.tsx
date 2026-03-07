@@ -11,6 +11,7 @@ import MyProjects from "./pages/MyProjects";
 import NotFound from "./pages/NotFound";
 import Dashboard from "./pages/Dashboard";
 import Subscription from "./pages/Subscription";
+import SubscriptionCheckout from "./pages/SubscriptionCheckout";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -35,6 +36,7 @@ const App = () => (
             <Route path="/projects" element={<Projects />} />
             <Route path="/my-projects" element={<MyProjects />} />
             <Route path="/subscription" element={<Subscription />} />
+            <Route path="/subscription/checkout/:planId" element={<SubscriptionCheckout />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

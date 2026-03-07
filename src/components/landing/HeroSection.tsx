@@ -1,8 +1,9 @@
-
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 export const HeroSection = () => {
+  const navigate = useNavigate();
   const scrollToProjects = () => {
     const projectsSection = document.getElementById('projects');
     if (projectsSection) {
@@ -50,16 +51,25 @@ export const HeroSection = () => {
           </motion.p>
 
           <motion.div
+            className="flex flex-wrap gap-4 justify-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.4 }}
           >
             <Button
               size="lg"
-              className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-lg px-8 py-6 rounded-lg animate-pulse-glow"
+              className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-lg px-8 py-6 rounded-lg animate-pulse-glow min-w-[200px]"
               onClick={scrollToProjects}
             >
               Start Funding
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="text-lg px-8 py-6 rounded-lg border-primary/30 hover:bg-primary/5 min-w-[200px]"
+              onClick={() => navigate("/subscription")}
+            >
+              View Plans
             </Button>
           </motion.div>
         </div>

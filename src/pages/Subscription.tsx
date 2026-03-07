@@ -6,9 +6,11 @@ import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { motion } from "framer-motion";
 import { FooterSection } from "@/components/landing/FooterSection";
+import { useNavigate } from "react-router-dom";
 
 const plans = [
   {
+    id: "community",
     name: "Community",
     price: "0",
     description: "Perfect for testing the waters and small personal projects.",
@@ -24,6 +26,7 @@ const plans = [
     popular: false,
   },
   {
+    id: "pro",
     name: "Pro",
     price: "19",
     description: "Best for growing creators and serious project launches.",
@@ -41,6 +44,7 @@ const plans = [
     popular: true,
   },
   {
+    id: "enterprise",
     name: "Enterprise",
     price: "99",
     description: "For established organizations and large-scale funding needs.",
@@ -75,6 +79,12 @@ const faq = [
 ];
 
 const Subscription = () => {
+  const navigate = useNavigate();
+
+  const handlePlanClick = (planId: string) => {
+    navigate(`/subscription/checkout/${planId}`);
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col relative overflow-hidden">
       {/* Background Decorations - Matching Dashboard style */}
@@ -116,8 +126,9 @@ const Subscription = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="flex"
+                onClick={() => handlePlanClick(plan.id)}
               >
-                <Card className={`glass-card relative flex flex-col w-full border-border/50 transition-all duration-500 hover:shadow-[0_0_40px_rgba(147,51,234,0.15)] hover:-translate-y-3 group overflow-hidden ${plan.popular ? 'border-primary/50 ring-1 ring-primary/20 bg-primary/5' : 'hover:border-primary/30'}`}>
+                <Card className={`glass-card relative flex flex-col w-full border-border/50 transition-all duration-500 hover:shadow-[0_0_40px_rgba(147,51,234,0.15)] hover:-translate-y-3 group overflow-hidden cursor-pointer ${plan.popular ? 'border-primary/50 ring-1 ring-primary/20 bg-primary/5' : 'hover:border-primary/30'}`}>
                   {plan.popular && (
                     <div className="absolute top-0 right-0">
                       <div className="bg-primary text-primary-foreground text-[10px] font-bold px-8 py-1 rotate-45 translate-x-6 translate-y-3 shadow-lg uppercase tracking-tighter">
@@ -160,6 +171,10 @@ const Subscription = () => {
                     <Button 
                       className={`w-full py-7 text-lg font-black rounded-2xl transition-all duration-300 ${plan.popular ? 'bg-gradient-to-r from-primary to-indigo-600 hover:opacity-90 shadow-[0_10px_20px_rgba(147,51,234,0.3)] hover:shadow-[0_15px_30px_rgba(147,51,234,0.4)]' : 'bg-muted/20 hover:bg-muted/40 border-border'}`}
                       variant={plan.popular ? "default" : "outline"}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handlePlanClick(plan.id);
+                      }}
                     >
                       {plan.buttonText}
                       {plan.popular && <Zap className="ml-2 h-5 w-5 fill-current" />}

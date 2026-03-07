@@ -4,6 +4,7 @@ import { HeroSection } from "@/components/landing/HeroSection";
 import { HowItWorksSection } from "@/components/landing/HowItWorksSection";
 import FeaturedProjectsSection from "@/components/landing/FeaturedProjectsSection";
 import { WhyChooseUsSection } from "@/components/landing/WhyChooseUsSection";
+import { PricingSection } from "@/components/landing/PricingSection";
 import { JoinMovementSection } from "@/components/landing/JoinMovementSection";
 import { FooterSection } from "@/components/landing/FooterSection";
 
@@ -14,6 +15,7 @@ export default function Index() {
       <HowItWorksSection />
       <FeaturedProjectsSection />
       <WhyChooseUsSection />
+      <PricingSection />
       <JoinMovementSection />
       <FooterSection />
     </div>
