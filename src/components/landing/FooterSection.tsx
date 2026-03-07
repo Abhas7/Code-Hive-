@@ -50,6 +50,7 @@ export const FooterSection = () => {
               <li><a href="/dashboard" className="text-muted-foreground hover:text-primary transition-colors">Dashboard</a></li>
               <li><a href="/projects" className="text-muted-foreground hover:text-primary transition-colors">Explore Projects</a></li>
               <li><a href="/my-projects" className="text-muted-foreground hover:text-primary transition-colors">My Projects</a></li>
+              <li><a href="/subscription" className="text-muted-foreground hover:text-primary transition-colors">Subscription Plans</a></li>
               <li><a href="#join" className="text-muted-foreground hover:text-primary transition-colors">Start a Project</a></li>
             </ul>
           </div>
