@@ -58,7 +58,7 @@ export const HeroSection = () => {
           >
             <Button
               size="lg"
-              className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-lg px-8 py-6 rounded-lg animate-pulse-glow min-w-[200px]"
+              className="bg-gradient-to-r from-purple-900 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-lg px-8 py-6 rounded-lg animate-pulse-glow min-w-[200px]"
               onClick={scrollToProjects}
             >
               Start Funding
