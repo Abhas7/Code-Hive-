@@ -63,15 +63,8 @@ export const HeroSection = () => {
             >
               Start Funding
             </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="text-lg px-8 py-6 rounded-lg border-primary/30 hover:bg-primary/5 min-w-[200px]"
-              onClick={() => navigate("/subscription")}
-            >
-              View Plans
-            </Button>
           </motion.div>
+
         </div>
       </div>
     </section>

@@ -86,12 +86,7 @@ export const Navigation = () => {
               >
                 Projects
               </Link>
-              <Link
-                to="/subscription"
-                className="text-sm font-medium hover:text-primary transition-colors"
-              >
-                Subscription
-              </Link>
+
               <button
                 onClick={() => scrollToSection('why-choose-us')}
                 className="text-sm font-medium hover:text-primary transition-colors"
@@ -163,13 +158,7 @@ export const Navigation = () => {
               >
                 Projects
               </Link>
-              <Link
-                to="/subscription"
-                className="text-sm font-medium hover:text-primary transition-colors py-2"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Subscription
-              </Link>
+
               <button
                 onClick={() => scrollToSection('why-choose-us')}
                 className="text-sm font-medium hover:text-primary transition-colors py-2 text-left"
