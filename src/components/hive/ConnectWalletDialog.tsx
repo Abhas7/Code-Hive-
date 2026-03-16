@@ -52,7 +52,7 @@ export const ConnectWalletDialog = ({
           </Button>
           <Button 
             onClick={onConnect}
-            className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white"
+            className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-black"
             disabled={isLoading}
           >
             {isLoading ? "Connecting..." : "Connect"}
