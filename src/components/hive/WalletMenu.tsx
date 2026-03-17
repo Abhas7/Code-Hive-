@@ -19,12 +19,12 @@ interface WalletMenuProps {
   onDisconnect: () => void;
 }
 
-export const WalletMenu = ({ 
-  connectedUser, 
-  accountInfo, 
+export const WalletMenu = ({
+  connectedUser,
+  accountInfo,
   isRefreshing,
   onRefresh,
-  onDisconnect 
+  onDisconnect
 }: WalletMenuProps) => {
   return (
     <DropdownMenu>
@@ -41,11 +41,11 @@ export const WalletMenu = ({
           </div>
         </Button>
       </DropdownMenuTrigger>
-      
+
       <DropdownMenuContent align="end" className="w-56">
         <DropdownMenuLabel>Hive Wallet</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        
+
         {accountInfo && (
           <>
             <div className="px-2 py-1.5">
@@ -61,13 +61,13 @@ export const WalletMenu = ({
             <DropdownMenuSeparator />
           </>
         )}
-        
+
         <DropdownMenuItem onClick={onRefresh} className="cursor-pointer">
           <RefreshCw className="mr-2 h-4 w-4" />
           <span>Refresh Balance</span>
         </DropdownMenuItem>
-        
-        <DropdownMenuItem 
+
+        <DropdownMenuItem
           onClick={onDisconnect}
           className="text-red-500 focus:text-red-500 cursor-pointer"
         >

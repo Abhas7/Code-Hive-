@@ -22,12 +22,12 @@ const Projects = () => {
       try {
         setIsLoading(true);
         const hivePosts = await fetchLatestProjects('crowdhive', 'created', PROJECTS_PER_PAGE);
-        
+
         // Format the posts to match our project structure
         const formattedProjects = hivePosts
           .map(post => formatPostToProject(post))
           .filter(Boolean); // Remove null values
-        
+
         setProjects(formattedProjects);
         setHasMore(hivePosts.length >= PROJECTS_PER_PAGE);
       } catch (error) {
@@ -47,23 +47,23 @@ const Projects = () => {
 
   const loadMoreProjects = async () => {
     if (loadingMore || !hasMore) return;
-    
+
     try {
       setLoadingMore(true);
       // In a real implementation, we would use the last post's author and permlink as the start parameter
       const nextPage = page + 1;
       const hivePosts = await fetchLatestProjects(
-        'crowdhive', 
-        'created', 
+        'crowdhive',
+        'created',
         PROJECTS_PER_PAGE,
         // We would normally pass the last post's author and permlink here
       );
-      
+
       // Format the posts to match our project structure
       const formattedProjects = hivePosts
         .map(post => formatPostToProject(post))
         .filter(Boolean); // Remove null values
-      
+
       if (formattedProjects.length > 0) {
         setProjects(prev => [...prev, ...formattedProjects]);
         setPage(nextPage);
@@ -94,7 +94,7 @@ const Projects = () => {
           </p>
         </div>
       </div>
-      
+
       <div className="container px-4 mx-auto pb-20">
         {isLoading ? (
           <div className="flex justify-center py-20">
@@ -103,11 +103,11 @@ const Projects = () => {
         ) : projects.length > 0 ? (
           <>
             <ProjectsList projects={projects} />
-            
+
             {hasMore && (
               <div className="flex justify-center mt-10">
-                <Button 
-                  onClick={loadMoreProjects} 
+                <Button
+                  onClick={loadMoreProjects}
                   disabled={loadingMore}
                   className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700"
                 >
@@ -129,7 +129,7 @@ const Projects = () => {
             <p className="text-muted-foreground mb-8">
               Be the first to create a project on CrowdHive!
             </p>
-            <Button 
+            <Button
               className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700"
               onClick={() => document.getElementById('create-project-btn')?.click()}
             >
@@ -138,7 +138,7 @@ const Projects = () => {
           </div>
         )}
       </div>
-      
+
       <FooterSection />
     </div>
   );

@@ -28,22 +28,22 @@ export const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
   // Animation variants
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
-      transition: { 
+      transition: {
         duration: 0.4,
       }
     },
-    hover: { 
+    hover: {
       y: -5,
       boxShadow: "0 10px 25px -5px rgba(124, 58, 237, 0.1), 0 8px 10px -6px rgba(124, 58, 237, 0.1)",
-      transition: { 
-        duration: 0.2 
+      transition: {
+        duration: 0.2
       }
     }
   };
-  
+
   // Determine if project is trending (for UI highlights)
   const isTrending = project.progress > 70;
   const isAlmostFunded = project.progress > 90;
@@ -68,7 +68,7 @@ export const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
             </span>
           </div>
         )}
-        
+
         {isTrending && (
           <div className="absolute top-3 right-3">
             {isAlmostFunded ? (
@@ -95,27 +95,25 @@ export const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
             <span>{project.raised}</span>
             <span>{project.target}</span>
           </div>
-          <Progress 
-            value={project.progress} 
-            className={`h-2 mb-2 ${
-              project.progress > 90 
-                ? 'bg-green-900/50' 
-                : project.progress > 70 
-                  ? 'bg-purple-900/50' 
-                  : 'bg-muted'
-            }`} 
+          <Progress
+            value={project.progress}
+            className={`h-2 mb-2 ${project.progress > 90
+              ? 'bg-green-900/50'
+              : project.progress > 70
+                ? 'bg-purple-900/50'
+                : 'bg-muted'
+              }`}
           />
           <div className="flex justify-between items-center">
-            <div className={`text-sm ${
-              project.progress > 90 
-                ? 'text-green-400' 
-                : project.progress > 70 
-                  ? 'text-purple-400' 
-                  : 'text-primary'
-            }`}>
+            <div className={`text-sm ${project.progress > 90
+              ? 'text-green-400'
+              : project.progress > 70
+                ? 'text-purple-400'
+                : 'text-primary'
+              }`}>
               {project.progress}% funded
             </div>
-            <motion.div 
+            <motion.div
               whileHover={{ scale: 1.05 }}
               className="text-xs text-muted-foreground hover:text-purple-400 transition-colors"
             >

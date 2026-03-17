@@ -80,7 +80,7 @@ export const ProjectsList = ({ projects }: ProjectsListProps) => {
   };
 
   const getContributorTierBadge = (tier: string) => {
-    switch(tier) {
+    switch (tier) {
       case "gold":
         return (
           <Badge className="ml-2 bg-yellow-500/80 text-yellow-100">
@@ -119,7 +119,7 @@ export const ProjectsList = ({ projects }: ProjectsListProps) => {
             </Badge>
           ))}
         </div>
-        
+
         <div className="flex gap-4 items-center">
           <Tabs defaultValue="newest" value={sortBy} onValueChange={setSortBy} className="w-full md:w-auto">
             <TabsList>
@@ -128,20 +128,20 @@ export const ProjectsList = ({ projects }: ProjectsListProps) => {
               <TabsTrigger value="popular">Popular</TabsTrigger>
             </TabsList>
           </Tabs>
-          
-          <Badge 
-            variant="outline" 
+
+          <Badge
+            variant="outline"
             className="cursor-pointer hover:bg-secondary flex items-center gap-1 px-3 py-1.5"
             onClick={() => setShowLeaderboard(!showLeaderboard)}
           >
-            <Users className="h-4 w-4" /> 
+            <Users className="h-4 w-4" />
             Leaderboard
           </Badge>
         </div>
       </div>
 
       {showLeaderboard && (
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: "auto" }}
           exit={{ opacity: 0, height: 0 }}
@@ -149,10 +149,10 @@ export const ProjectsList = ({ projects }: ProjectsListProps) => {
         >
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-xl font-bold gradient-text flex items-center">
-              <Trophy className="h-5 w-5 mr-2 text-yellow-500" /> 
+              <Trophy className="h-5 w-5 mr-2 text-yellow-500" />
               Top Contributors
             </h3>
-            
+
             {userPoints > 0 && (
               <div className="flex items-center space-x-2">
                 <span className="text-sm text-muted-foreground">Your rank:</span>
@@ -162,7 +162,7 @@ export const ProjectsList = ({ projects }: ProjectsListProps) => {
               </div>
             )}
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
             {topContributors.map((contributor, index) => (
               <motion.div
@@ -179,13 +179,12 @@ export const ProjectsList = ({ projects }: ProjectsListProps) => {
                       {index + 1}
                     </div>
                   )}
-                  <div className={`mx-auto w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold ${
-                    contributor.tier === 'gold' 
-                      ? 'bg-yellow-500/20 border-2 border-yellow-500 text-yellow-500' 
-                      : contributor.tier === 'silver' 
-                        ? 'bg-gray-400/20 border-2 border-gray-400 text-muted-foreground' 
-                        : 'bg-amber-700/20 border-2 border-amber-700 text-amber-700'
-                  }`}>
+                  <div className={`mx-auto w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold ${contributor.tier === 'gold'
+                    ? 'bg-yellow-500/20 border-2 border-yellow-500 text-yellow-500'
+                    : contributor.tier === 'silver'
+                      ? 'bg-gray-400/20 border-2 border-gray-400 text-muted-foreground'
+                      : 'bg-amber-700/20 border-2 border-amber-700 text-amber-700'
+                    }`}>
                     {contributor.username.substring(0, 2).toUpperCase()}
                   </div>
                 </div>
@@ -195,15 +194,14 @@ export const ProjectsList = ({ projects }: ProjectsListProps) => {
                   {getContributorTierBadge(contributor.tier)}
                 </div>
                 <div className="mt-2">
-                  <Progress 
-                    value={(contributor.contributions / 2500) * 100} 
-                    className={`h-1.5 ${
-                      contributor.tier === 'gold' 
-                        ? 'bg-yellow-900/30' 
-                        : contributor.tier === 'silver' 
-                          ? 'bg-muted/30' 
-                          : 'bg-amber-900/30'
-                    }`}
+                  <Progress
+                    value={(contributor.contributions / 2500) * 100}
+                    className={`h-1.5 ${contributor.tier === 'gold'
+                      ? 'bg-yellow-900/30'
+                      : contributor.tier === 'silver'
+                        ? 'bg-muted/30'
+                        : 'bg-amber-900/30'
+                      }`}
                   />
                 </div>
               </motion.div>

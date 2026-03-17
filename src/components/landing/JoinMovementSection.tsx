@@ -26,7 +26,7 @@ export const JoinMovementSection = () => {
               Be part of the decentralized funding revolution and connect with creators around the world
             </p>
 
-            <Button 
+            <Button
               id="create-project-btn"
               onClick={() => setIsModalOpen(true)}
               className="w-full md:w-auto bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-lg py-6 px-8"
@@ -43,9 +43,9 @@ export const JoinMovementSection = () => {
       </div>
 
       {/* Create Project Modal */}
-      <CreateProjectForm 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
+      <CreateProjectForm
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
       />
     </section>
   );

@@ -42,15 +42,15 @@ export const ConnectWalletDialog = ({
           </div>
         </div>
         <DialogFooter className="flex gap-2 sm:gap-0">
-          <Button 
-            onClick={() => onOpenChange(false)} 
-            variant="outline" 
+          <Button
+            onClick={() => onOpenChange(false)}
+            variant="outline"
             disabled={isLoading}
             className="border-input text-foreground"
           >
             Cancel
           </Button>
-          <Button 
+          <Button
             onClick={onConnect}
             className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-black"
             disabled={isLoading}

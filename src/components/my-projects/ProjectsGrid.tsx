@@ -30,7 +30,7 @@ export const ProjectsGrid = ({
           onClick={() => onProjectClick(project)}
         />
       ))}
-      
+
       {activeTab === "drafts" && drafts.map(draft => (
         <ProjectDraftItem
           key={draft.id}
@@ -39,7 +39,7 @@ export const ProjectsGrid = ({
           onDeleteDraft={onDeleteDraft}
         />
       ))}
-      
+
       {activeTab === "contributed" && contributions.map(contribution => (
         <ProjectCard
           key={contribution.id}

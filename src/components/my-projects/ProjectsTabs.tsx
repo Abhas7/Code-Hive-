@@ -36,25 +36,25 @@ export const ProjectsTabs = ({
     if (!getConnectedUsername()) {
       return <NotConnectedState onNavigateHome={onNavigateHome} />;
     }
-    
+
     // Loading state
     if (isLoading) {
       return <LoadingState />;
     }
-    
+
     // Empty states
     if (activeTab === "created" && projects.length === 0) {
       return <EmptyProjectsState onCreateProject={onCreateProject} type="created" />;
     }
-    
+
     if (activeTab === "drafts" && drafts.length === 0) {
       return <EmptyProjectsState onCreateProject={onCreateProject} type="drafts" />;
     }
-    
+
     if (activeTab === "contributed" && contributions.length === 0) {
       return <EmptyProjectsState onCreateProject={onCreateProject} type="contributed" />;
     }
-    
+
     // Projects grid
     return (
       <ProjectsGrid
@@ -76,15 +76,15 @@ export const ProjectsTabs = ({
         <TabsTrigger value="drafts">Drafts</TabsTrigger>
         <TabsTrigger value="contributed">Contributions</TabsTrigger>
       </TabsList>
-      
+
       <TabsContent value="created" className="mt-6">
         {renderContent()}
       </TabsContent>
-      
+
       <TabsContent value="drafts" className="mt-6">
         {renderContent()}
       </TabsContent>
-      
+
       <TabsContent value="contributed" className="mt-6">
         {renderContent()}
       </TabsContent>

@@ -392,10 +392,10 @@ const FeaturedProjectsSection = () => {
                       <div className="flex items-center gap-3">
                         <div
                           className={`w-8 h-8 rounded-full flex items-center justify-center ${user.tier === 'gold'
-                              ? 'bg-yellow-500/20 border-2 border-yellow-500'
-                              : user.tier === 'silver'
-                                ? 'bg-gray-400/20 border-2 border-gray-400'
-                                : 'bg-amber-700/20 border-2 border-amber-700'
+                            ? 'bg-yellow-500/20 border-2 border-yellow-500'
+                            : user.tier === 'silver'
+                              ? 'bg-gray-400/20 border-2 border-gray-400'
+                              : 'bg-amber-700/20 border-2 border-amber-700'
                             }`}
                         >
                           {user.username.substring(0, 2).toUpperCase()}
@@ -425,10 +425,10 @@ const FeaturedProjectsSection = () => {
                         >
                           <motion.div
                             className={`h-full ${user.tier === 'gold'
-                                ? 'bg-yellow-500'
-                                : user.tier === 'silver'
-                                  ? 'bg-gray-400'
-                                  : 'bg-amber-700'
+                              ? 'bg-yellow-500'
+                              : user.tier === 'silver'
+                                ? 'bg-gray-400'
+                                : 'bg-amber-700'
                               }`}
                             initial={{ width: 0 }}
                             animate={{ width: `${(user.contributions / 2500) * 100}%` }}

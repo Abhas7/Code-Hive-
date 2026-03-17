@@ -8,7 +8,7 @@ import { getConnectedUsername, fetchLatestProjects, formatPostToProject } from "
 import { PlusCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { JoinMovementSection } from "@/components/landing/JoinMovementSection";
-import { ProjectsTabs } from "@/components/my-projects/ProjectsTabs"; 
+import { ProjectsTabs } from "@/components/my-projects/ProjectsTabs";
 
 const MyProjects = () => {
   const [activeTab, setActiveTab] = useState("created");
@@ -20,10 +20,10 @@ const MyProjects = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
-  
+
   useEffect(() => {
-    const username = getConnectedUsername();    
-    
+    const username = getConnectedUsername();
+
     if (!username) {
       toast({
         title: "Not connected",
@@ -33,33 +33,33 @@ const MyProjects = () => {
       setIsLoading(false);
       return;
     }
-    
+
     const fetchUserProjects = async () => {
       try {
         setIsLoading(true);
-        
+
         // Fetch projects created by the user from Hive
         const hivePosts = await fetchLatestProjects('crowdhive', 'created', 50);
-        
+
         // Filter posts by the current user
         const userPosts = hivePosts.filter(post => post.author === username);
-        
+
         // Format the posts to match our project structure
         const formattedProjects = userPosts
           .map(post => formatPostToProject(post))
           .filter(Boolean); // Remove null values
-        
+
         setProjects(formattedProjects);
-        
+
         // Get draft projects from localStorage
         const storedDrafts = JSON.parse(localStorage.getItem('projectDrafts') || '[]');
         const userDrafts = storedDrafts.filter((draft: any) => draft.creator === username);
         setDrafts(userDrafts);
-        
+
         // For contributions, we would fetch transfers from the blockchain  
         // This is simplified for now
         setContributions([]);
-        
+
       } catch (error) {
         console.error("Error fetching user projects:", error);
         toast({
@@ -71,20 +71,20 @@ const MyProjects = () => {
         setIsLoading(false);
       }
     };
-    
+
     fetchUserProjects();
   }, [toast]);
-  
+
   const handleProjectClick = (project: any) => {
     setSelectedProject(project);
     setIsModalOpen(true);
   };
-  
+
   const handleCreateProject = () => {
     // Get the create project button from JoinMovementSection
     document.getElementById('create-project-btn')?.click();
   };
-  
+
   const handleDeleteDraft = (draftId: string) => {
     try {
       // Get drafts from localStorage
@@ -95,7 +95,7 @@ const MyProjects = () => {
       localStorage.setItem('projectDrafts', JSON.stringify(updatedDrafts));
       // Update state
       setDrafts(drafts.filter(draft => draft.id !== draftId));
-      
+
       toast({
         title: "Draft deleted",
         description: "Your project draft has been removed",
@@ -109,7 +109,7 @@ const MyProjects = () => {
       });
     }
   };
-  
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <div className="pt-10 pb-10">
@@ -118,7 +118,7 @@ const MyProjects = () => {
           <p className="text-xl text-muted-foreground max-w-2xl">
             Manage your created projects, drafts, and contributions
           </p>
-          
+
           <ProjectsTabs
             activeTab={activeTab}
             setActiveTab={setActiveTab}
@@ -133,7 +133,7 @@ const MyProjects = () => {
           />
         </div>
       </div>
-      
+
       <div className="container px-4 mx-auto py-8">
         <Button
           onClick={handleCreateProject}
@@ -143,13 +143,13 @@ const MyProjects = () => {
           Create New Project
         </Button>
       </div>
-      
+
       <div className="hidden">
         <JoinMovementSection />
       </div>
-      
+
       <FooterSection />
-      
+
       <ProjectModal
         project={selectedProject}
         isOpen={isModalOpen}

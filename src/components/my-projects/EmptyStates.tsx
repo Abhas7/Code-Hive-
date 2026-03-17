@@ -30,7 +30,7 @@ interface EmptyProjectsProps {
 
 export const EmptyProjectsState = ({ onCreateProject, type }: EmptyProjectsProps) => {
   const navigate = useNavigate();
-  
+
   const content = {
     created: {
       title: "You haven't created any projects yet",
@@ -54,9 +54,9 @@ export const EmptyProjectsState = ({ onCreateProject, type }: EmptyProjectsProps
       buttonIcon: null
     }
   };
-  
+
   const { title, description, buttonText, buttonAction, buttonIcon } = content[type];
-  
+
   return (
     <div className="text-center py-12">
       <h3 className="text-xl font-semibold mb-4">{title}</h3>

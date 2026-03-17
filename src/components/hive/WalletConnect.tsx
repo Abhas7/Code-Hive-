@@ -37,7 +37,7 @@ export const WalletConnect = () => {
   const openConnectDialog = () => {
     // Force a check for keychain before opening dialog
     const keychainAvailable = typeof window !== 'undefined' && window.hive_keychain !== undefined;
-    
+
     if (!keychainAvailable) {
       const downloadLink = getKeychainDownloadLink();
       toast({
@@ -45,9 +45,9 @@ export const WalletConnect = () => {
         description: (
           <div className="flex flex-col gap-2">
             <p>Please install the Hive Keychain browser extension to connect your wallet.</p>
-            <a 
-              href={downloadLink} 
-              target="_blank" 
+            <a
+              href={downloadLink}
+              target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1 text-blue-400 hover:text-blue-300"
             >
