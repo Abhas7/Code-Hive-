@@ -96,6 +96,17 @@ export const useHiveWallet = () => {
         if (result.account) {
           setAccountInfo(result.account);
         }
+
+        // Save connected user to MongoDB via Backend
+        try {
+          await fetch('http://localhost:5000/api/users', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username })
+          });
+        } catch (dbError) {
+          console.error("Failed to save user to MongoDB:", dbError);
+        }
         
         toast({
           title: "Connected to Hive",
