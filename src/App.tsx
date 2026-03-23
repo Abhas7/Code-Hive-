@@ -10,6 +10,7 @@ import Projects from "./pages/Projects";
 import MyProjects from "./pages/MyProjects";
 import NotFound from "./pages/NotFound";
 import Dashboard from "./pages/Dashboard";
+import Chatbot from "./pages/Chatbot";
 
 
 const queryClient = new QueryClient({
@@ -34,6 +35,7 @@ const App = () => (
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/my-projects" element={<MyProjects />} />
+            <Route path="/chatbot" element={<Chatbot />} />
 
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />

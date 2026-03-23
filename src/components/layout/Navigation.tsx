@@ -99,6 +99,12 @@ export const Navigation = () => {
               >
                 My Projects
               </Link>
+              <Link
+                to="/chatbot"
+                className="text-sm font-medium hover:text-primary transition-colors"
+              >
+                AI Assistant
+              </Link>
             </div>
           </div>
 
@@ -171,6 +177,13 @@ export const Navigation = () => {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 My Projects
+              </Link>
+              <Link
+                to="/chatbot"
+                className="text-sm font-medium hover:text-primary transition-colors py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                AI Assistant
               </Link>
               <div className="py-2">
                 <WalletConnect />
