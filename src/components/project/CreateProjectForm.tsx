@@ -589,7 +589,7 @@ ${data.fundingGoal} HIVE
                         <li>25% - First milestone reached</li>
                         <li>50% - Halfway to goal</li>
                         <li>75% - Three-quarters funded</li>
-                        <li>100% - Fully funded</li>
+                        <li>100% - Fully fundedd</li>
                       </ul>
                     </div>
                   </div>
