@@ -3,10 +3,13 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
-
+const { GoogleGenAI } = require('@google/genai');
 
 const app = express();
-const PORT = process.env.PORT || 8000 ;
+const PORT = process.env.PORT || 8000;
+
+// Initialize Google Gen AI
+const ai = process.env.GEMINI_API_KEY ? new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY }) : null;
 
 // Middleware
 app.use(cors());
@@ -90,6 +93,40 @@ app.get('/api/users/me', authenticateToken, async (req, res) => {
     res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// AI Chat Route
+app.post('/api/chat', async (req, res) => {
+  const { messages } = req.body;
+  
+  if (!messages || !Array.isArray(messages)) {
+    return res.status(400).json({ error: 'Messages array is required' });
+  }
+
+  if (!ai) {
+    return res.status(503).json({ error: 'AI service unavailable: GEMINI_API_KEY is not configured in backend/.env' });
+  }
+
+  try {
+    // Map messages to Gemini's expected format
+    const contents = messages.map(msg => ({
+      role: msg.role === 'user' ? 'user' : 'model',
+      parts: [{ text: msg.content }]
+    }));
+
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: contents,
+      config: {
+        systemInstruction: "You are an AI assistant for CodeHIVE, a platform for developers. Be concise, helpful, and professional.",
+      }
+    });
+
+    res.status(200).json({ reply: response.text });
+  } catch (error) {
+    console.error('Error generating AI response:', error);
+    res.status(500).json({ error: 'Internal server error while communicating with AI.' });
   }
 });
 

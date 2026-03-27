@@ -43,16 +43,43 @@ export default function Chatbot() {
     setInput("");
     setIsLoading(true);
 
-    // Simulate AI response
-    setTimeout(() => {
+    try {
+      const response = await fetch("http://localhost:8000/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        // send all history including the new userMsg
+        body: JSON.stringify({ messages: [...messages, userMsg] }),
+      });
+
+      if (!response.ok) {
+        let errorMsg = "Failed to fetch AI response.";
+        try {
+          const errData = await response.json();
+          if (errData.error) errorMsg = errData.error;
+        } catch (e) {
+          // Keep default
+        }
+        throw new Error(errorMsg);
+      }
+
+      const data = await response.json();
       const aiMsg: Message = {
         id: (Date.now() + 1).toString(),
         role: "assistant",
-        content: "This is a dummy response. Connect this to your backend AI service.",
+        content: data.reply || "No response received.",
       };
       setMessages((prev) => [...prev, aiMsg]);
+    } catch (error: any) {
+      console.error("AI chat error:", error);
+      const errorMsg: Message = {
+        id: (Date.now() + 1).toString(),
+        role: "assistant",
+        content: `Error: ${error.message}. Make sure your backend server is running and GEMINI_API_KEY is configured in backend/.env.`,
+      };
+      setMessages((prev) => [...prev, errorMsg]);
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   const clearChat = () => {
