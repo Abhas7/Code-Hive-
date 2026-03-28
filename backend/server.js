@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 require('dotenv').config();
 const { GoogleGenAI } = require('@google/genai');
 
@@ -30,6 +31,7 @@ mongoose.connect(MONGODB_URI)
 // User Model
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
+  password: { type: String },
   connectedAt: { type: Date, default: Date.now },
 });
 
@@ -81,6 +83,70 @@ app.post('/api/users', async (req, res) => {
     res.status(200).json({ message: 'User saved successfully', user, token });
   } catch (error) {
     console.error('Error saving user:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Implementation of bcrypt: Register Route
+app.post('/api/register', async (req, res) => {
+  const { username, password } = req.body;
+  if (!username || !password) {
+    return res.status(400).json({ error: 'Username and password are required' });
+  }
+
+  try {
+    const existingUser = await User.findOne({ username });
+    if (existingUser) {
+      return res.status(400).json({ error: 'Username already exists' });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const newUser = new User({ 
+      username, 
+      password: hashedPassword 
+    });
+    
+    await newUser.save();
+    res.status(201).json({ message: 'User registered successfully' });
+  } catch (error) {
+    console.error('Registration error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Implementation of bcrypt: Login Route
+app.post('/api/login', async (req, res) => {
+  const { username, password } = req.body;
+  if (!username || !password) {
+    return res.status(400).json({ error: 'Username and password are required' });
+  }
+
+  try {
+    const user = await User.findOne({ username });
+    if (!user || !user.password) {
+      return res.status(401).json({ error: 'Invalid username or password' });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ error: 'Invalid username or password' });
+    }
+
+    // Generate JWT token
+    const token = jwt.sign(
+      { id: user._id, username: user.username },
+      process.env.JWT_SECRET || 'fallback_secret_key',
+      { expiresIn: '24h' }
+    );
+
+    user.connectedAt = Date.now();
+    await user.save();
+
+    res.status(200).json({ message: 'Login successful', user, token });
+  } catch (error) {
+    console.error('Login error:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
