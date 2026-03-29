@@ -31,11 +31,32 @@ mongoose.connect(MONGODB_URI)
 // User Model
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
+  email: { type: String, required: false, unique: true, sparse: true },
   password: { type: String },
+  profile: {
+    firstName: { type: String, default: '' },
+    lastName: { type: String, default: '' },
+    bio: { type: String, default: '' },
+    avatarUrl: { type: String, default: '' },
+    githubUrl: { type: String, default: '' },
+    skills: [{ type: String }]
+  },
   connectedAt: { type: Date, default: Date.now },
-});
+}, { timestamps: true });
 
 const User = mongoose.model('User', userSchema);
+
+// Project Model (to associate projects with users)
+const projectSchema = new mongoose.Schema({
+  title: { type: String, required: true },
+  description: { type: String },
+  owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  repoUrl: { type: String },
+  liveUrl: { type: String },
+  techStack: [{ type: String }],
+}, { timestamps: true });
+
+const Project = mongoose.model('Project', projectSchema);
 
 // Basic Example Route
 app.get('/api/health', (req, res) => {
@@ -143,8 +164,6 @@ app.post('/api/login', async (req, res) => {
 
     user.connectedAt = Date.now();
     await user.save();
-
-    const alphaModel = new mongoose.model
 
     res.status(200).json({ message: 'Login successful', user, token });
   } catch (error) {
