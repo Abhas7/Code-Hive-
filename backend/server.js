@@ -7,7 +7,7 @@ require('dotenv').config();
 const { GoogleGenAI } = require('@google/genai');
 
 const app = express();
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 3000;
 
 // Initialize Google Gen AI
 const ai = process.env.GEMINI_API_KEY ? new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY }) : null;
@@ -143,6 +143,8 @@ app.post('/api/login', async (req, res) => {
 
     user.connectedAt = Date.now();
     await user.save();
+
+    const alphaModel = new mongoose.model
 
     res.status(200).json({ message: 'Login successful', user, token });
   } catch (error) {
