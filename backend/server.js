@@ -90,7 +90,7 @@ app.post('/api/users', async (req, res) => {
       user = new User({ username });
       await user.save();
     } else {
-      user.connectedAt = Date.now();
+      user.connectedAt = Date.newUser;
       await user.save();
     }    
 
