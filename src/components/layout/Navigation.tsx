@@ -113,6 +113,11 @@ export const Navigation = () => {
             <div className="hidden md:block">
               <WalletConnect />
             </div>
+            <Link to="/login">
+              <Button variant="outline" className="hidden md:inline-flex">
+                Login
+              </Button>
+            </Link>
             <Button
               className="hidden md:inline-flex bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700"
               onClick={handleStartProject}
@@ -188,6 +193,16 @@ export const Navigation = () => {
               <div className="py-2">
                 <WalletConnect />
               </div>
+              <Button
+                variant="outline"
+                className="w-full"
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  navigate("/login");
+                }}
+              >
+                Login
+              </Button>
               <Button
                 className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700"
                 onClick={() => {
