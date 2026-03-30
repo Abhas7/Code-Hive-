@@ -92,7 +92,7 @@ app.post('/api/users', async (req, res) => {
     } else {
       user.connectedAt = Date.now();
       await user.save();
-    }
+    }    
 
     // Generate JWT token
     const token = jwt.sign(
